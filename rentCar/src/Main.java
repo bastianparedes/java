@@ -11,12 +11,10 @@ import carStore.Arriendo;
 
 public class Main {
 
-    
-
     public static void main(String[] args) {
-        ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
-        ArrayList<Arriendo> listaArriendos = new ArrayList<Arriendo>();
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+        ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+        ArrayList<Arriendo> arriendos = new ArrayList<Arriendo>();
 
         // GUARDA Y MUESTRA LOS CLIENTES
         System.out.println("\n\n\n" + "==========CLIENTES REGISTRADOS==========");
@@ -28,7 +26,7 @@ public class Main {
             boolean vigente = Boolean.parseBoolean(arrayCliente[2]);
 
             Cliente cliente = new Cliente(rut, nombre, vigente);
-            listaClientes.add(cliente);
+            clientes.add(cliente);
 
             cliente.mostrarInformacion();
         }
@@ -46,7 +44,7 @@ public class Main {
             String condicion = arrayVehiculo[4];
 
             Vehiculo vehiculo = new Vehiculo(patente, marca, modelo, year, condicion);
-            listaVehiculos.add(vehiculo);
+            vehiculos.add(vehiculo);
 
             vehiculo.mostrarInformacion();
         }
@@ -64,17 +62,65 @@ public class Main {
             int duracionDias = Integer.parseInt(arrayArriendo[4]);
             int precioPorDia = Integer.parseInt(arrayArriendo[5]);
 
-            Vehiculo vehiculo = listaVehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patenteVehiculo)).findAny().orElse(null);
-            Cliente cliente = listaClientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rutCliente)).findAny().orElse(null);
-
-            vehiculo.mostrarInformacion();
+            Vehiculo vehiculo = vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patenteVehiculo)).findAny().orElse(null);
+            Cliente cliente = clientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rutCliente)).findAny().orElse(null);
 
             Arriendo arriendo = new Arriendo(numero, vehiculo, cliente, fecha, duracionDias, precioPorDia);
-            listaArriendos.add(arriendo);
+            arriendos.add(arriendo);
 
             arriendo.mostrarInformacion();
         }
 
+
+        // COMIENZA EL MENU DE OPCIONES
+        Scanner scanner = new Scanner(System.in);
+        String opcionIngresada;
+        while (true) {
+
+            // MUESTRA EL MENÚ
+            System.out.println(
+                "Ingresa uno de los números de la lista mostrada a continuación\n"
+                + "1: Mostrar los clientes registrados.\n"
+                + "2: Mostrar los vehículos registrados.\n"
+                + "3: Mostrar los arriendos registrados.\n"
+                + "4: Registrar nuevo vehículo.\n"
+                + "5: Registrar nuevo cliente.\n"
+                + "6: Registrar nuevo arriendo.\n"
+                + "7: Realizar devolución de vehículo.\n"
+                + "8: Deshabilitar cliente.\n"
+                + "9: Cerrar programa.\n"
+                + "¿Qué deseas hacer?"
+            );
+
+            // DETECTA LA OPCIÓN ELEGIDA
+    		opcionIngresada = scanner.nextLine();
+
+            if (opcionIngresada.equals("1")) {
+
+            } else if (opcionIngresada.equals("2")) {
+                
+            } else if (opcionIngresada.equals("3")) {
+                
+            } else if (opcionIngresada.equals("4")) {
+                
+            } else if (opcionIngresada.equals("5")) {
+                
+            } else if (opcionIngresada.equals("6")) {
+                
+            } else if (opcionIngresada.equals("7")) {
+                
+            } else if (opcionIngresada.equals("8")) {
+
+            } else if (opcionIngresada.equals("9")) {
+                break;
+            } else {
+                System.out.println("\n\n\nIngresaste un valor inválido. Inténtelo denuevo.\n\n\n");
+            }
+
+        }
+
+
+        System.out.println("Programa finalizado!!!");
     }
 
 
