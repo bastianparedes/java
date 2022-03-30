@@ -17,7 +17,6 @@ public class Main {
         ArrayList<Arriendo> arriendos = new ArrayList<Arriendo>();
 
         // GUARDA Y MUESTRA LOS CLIENTES
-        System.out.println("\n\n\n" + "==========CLIENTES REGISTRADOS==========");
         for (String rawCliente: leerArchivo("clientes.txt")) {
             String[] arrayCliente = rawCliente.split(";");
 
@@ -27,13 +26,10 @@ public class Main {
 
             Cliente cliente = new Cliente(rut, nombre, vigente);
             clientes.add(cliente);
-
-            cliente.mostrarInformacion();
         }
 
 
         // GUARDA Y MUESTRA LOS VEHÍCULOS
-        System.out.println("\n\n\n" + "==========VEHÍCULOS REGISTRADOS==========");
         for (String rawVehiculo: leerArchivo("vehiculos.txt")) {
             String[] arrayVehiculo = rawVehiculo.split(";");
 
@@ -45,13 +41,10 @@ public class Main {
 
             Vehiculo vehiculo = new Vehiculo(patente, marca, modelo, year, condicion);
             vehiculos.add(vehiculo);
-
-            vehiculo.mostrarInformacion();
         }
 
 
         // GUARDA Y MUESTRA LOS ARRIENDOS
-        System.out.println("\n\n\n" + "==========ARRIENDOS REGISTRADOS==========");
         for (String rawArriendo: leerArchivo("Arriendos.txt")) {
             String[] arrayArriendo = rawArriendo.split(";");
 
@@ -67,8 +60,6 @@ public class Main {
 
             Arriendo arriendo = new Arriendo(numero, vehiculo, cliente, fecha, duracionDias, precioPorDia);
             arriendos.add(arriendo);
-
-            arriendo.mostrarInformacion();
         }
 
 
@@ -95,12 +86,21 @@ public class Main {
             // DETECTA LA OPCIÓN ELEGIDA
     		opcionIngresada = scanner.nextLine();
 
-            if (opcionIngresada.equals("1")) {
-
-            } else if (opcionIngresada.equals("2")) {
-                
-            } else if (opcionIngresada.equals("3")) {
-                
+            if (opcionIngresada.equals("1")) {//MOSTRAR CLIENTES
+                System.out.println("\n\n\n" + "==========CLIENTES REGISTRADOS==========");
+                for (Cliente cliente: clientes) {
+                    cliente.mostrarInformacion();
+                }
+            } else if (opcionIngresada.equals("2")) {//MOSTRAR VEHICULOS
+                System.out.println("\n\n\n" + "==========VEHÍCULOS REGISTRADOS==========");
+                for (Vehiculo vehiculo: vehiculos) {
+                    vehiculo.mostrarInformacion();
+                }
+            } else if (opcionIngresada.equals("3")) {//MOSTRAR ARRIENDOS
+                System.out.println("\n\n\n" + "==========ARRIENDOS REGISTRADOS==========");
+                for (Arriendo arriendo: arriendos) {
+                    arriendo.mostrarInformacion();
+                }
             } else if (opcionIngresada.equals("4")) {
                 
             } else if (opcionIngresada.equals("5")) {
@@ -127,6 +127,8 @@ public class Main {
 
 
 
+
+    
     public static ArrayList<String> leerArchivo(String nombreArchivo) {
         ArrayList<String> interiorArchivo = new ArrayList<String>();
 
