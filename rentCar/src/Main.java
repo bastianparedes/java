@@ -18,7 +18,8 @@ public class Main {
         ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
         ArrayList<Arriendo> listaArriendos = new ArrayList<Arriendo>();
 
-        System.out.println("\n\n\n" + "CLIENTES REGISTRADOS");
+        // GUARDA Y MUESTRA LOS CLIENTES
+        System.out.println("\n\n\n" + "==========CLIENTES REGISTRADOS==========");
         for (String rawCliente: leerArchivo("clientes.txt")) {
             String[] arrayCliente = rawCliente.split(";");
 
@@ -32,7 +33,9 @@ public class Main {
             cliente.mostrarInformacion();
         }
 
-        System.out.println("\n\n\n" + "VEHÍCULOS REGISTRADOS");
+
+        // GUARDA Y MUESTRA LOS VEHÍCULOS
+        System.out.println("\n\n\n" + "==========VEHÍCULOS REGISTRADOS==========");
         for (String rawVehiculo: leerArchivo("vehiculos.txt")) {
             String[] arrayVehiculo = rawVehiculo.split(";");
 
@@ -48,22 +51,32 @@ public class Main {
             vehiculo.mostrarInformacion();
         }
 
-        System.out.println("\n\n\n" + "ARRIENDOS REGISTRADOS");
-        for (String rawArriendo: leerArchivo("vehiculos.txt")) {
+
+        // GUARDA Y MUESTRA LOS ARRIENDOS
+        System.out.println("\n\n\n" + "==========ARRIENDOS REGISTRADOS==========");
+        for (String rawArriendo: leerArchivo("Arriendos.txt")) {
             String[] arrayArriendo = rawArriendo.split(";");
 
-            String patente = arrayArriendo[0];
-            String marca = arrayArriendo[1];
-            String modelo = arrayArriendo[2];
-            int year = Integer.parseInt(arrayArriendo[3]);
-            String condicion = arrayArriendo[4];
+            int numero = Integer.parseInt(arrayArriendo[0]);
+            String patenteVehiculo = arrayArriendo[1];
+            String rutCliente = arrayArriendo[2];
+            String fecha = arrayArriendo[3];
+            int duracionDias = Integer.parseInt(arrayArriendo[4]);
+            int precioPorDia = Integer.parseInt(arrayArriendo[5]);
 
-            Arriendo arriendo = new Arriendo(patente, marca, modelo, year, condicion);
+            Vehiculo vehiculo = listaVehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patenteVehiculo)).findAny().orElse(null);
+            Cliente cliente = listaClientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rutCliente)).findAny().orElse(null);
+
+            vehiculo.mostrarInformacion();
+
+            Arriendo arriendo = new Arriendo(numero, vehiculo, cliente, fecha, duracionDias, precioPorDia);
             listaArriendos.add(arriendo);
+
             arriendo.mostrarInformacion();
         }
 
     }
+
 
 
 
@@ -80,7 +93,9 @@ public class Main {
                 interiorArchivo.add(linea);
         }
             scanner.close();
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e) {
+
+        }
         return interiorArchivo;
     }
 

@@ -6,8 +6,8 @@ public class Arriendo {
     private Cliente cliente;
     private String fecha;
     private int duracionDias;
+	private int precioPorDia;
     private int monto;
-    private boolean valido = true;
 
 
     public Arriendo(int numero, Vehiculo vehiculo, Cliente cliente, String fecha, int duracionDias, int precioPorDia) {
@@ -16,17 +16,8 @@ public class Arriendo {
         this.cliente = cliente;
         this.fecha = fecha;
         this.duracionDias = duracionDias;
+		this.precioPorDia = precioPorDia;
         this.monto = duracionDias * precioPorDia;
-        
-        if (vehiculo.getCondicion() != "D") {
-        	System.out.println("El vehículo ingresado no está disponible.");
-        	this.valido = false;
-        } else if (!cliente.getVigente()) {
-        	System.out.println("El cliente ingresado no está vigente.");
-        	this.valido = false;
-        }
-        
-
     }    
 
 	public int getNumero() {
@@ -53,12 +44,17 @@ public class Arriendo {
 		return this.monto;
 	}
 
-	public boolean getValido() {
-		return this.valido;
-	}
 
-
-	public void 
+	public void mostrarInformacion() {
+        System.out.println(
+            "Numero: " + this.numero + "\n"
+			+ "    " + "Patente del vehículo: " + this.vehiculo.getPatente() + "\n"
+			+ "    " + "Rut del cliente: " + this.cliente.getRut() + "\n"
+			+ "    " + "Fecha: " + this.fecha + "\n"
+			+ "    " + "Días de arriendo: " + this.duracionDias + "\n"
+			+ "    " + "Precio por cada día: " + this.precioPorDia + "\n"
+        );
+    }
 
 
 	
@@ -68,3 +64,5 @@ public class Arriendo {
 	}
 	
 }
+
+
