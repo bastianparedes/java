@@ -1,6 +1,9 @@
-
+// 0;HDGZ41;10111648-8;30/04/2019;15000;45
 import java.io.File;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -45,7 +48,7 @@ public class Main {
 
 
         // GUARDA Y MUESTRA LOS ARRIENDOS
-        for (String rawArriendo: leerArchivo("Arriendos.txt")) {
+        for (String rawArriendo: leerArchivo("arriendos.txt")) {
             String[] arrayArriendo = rawArriendo.split(";");
 
             int numero = Integer.parseInt(arrayArriendo[0]);
@@ -84,43 +87,125 @@ public class Main {
             );
 
             // DETECTA LA OPCIÓN ELEGIDA
-    		opcionIngresada = scanner.nextLine();
+            opcionIngresada = scanner.nextLine();
 
             if (opcionIngresada.equals("1")) {//MOSTRAR CLIENTES
                 System.out.println("\n\n\n" + "==========CLIENTES REGISTRADOS==========");
                 for (Cliente cliente: clientes) {
                     cliente.mostrarInformacion();
                 }
+
+
+
+
+
             } else if (opcionIngresada.equals("2")) {//MOSTRAR VEHICULOS
                 System.out.println("\n\n\n" + "==========VEHÍCULOS REGISTRADOS==========");
                 for (Vehiculo vehiculo: vehiculos) {
                     vehiculo.mostrarInformacion();
                 }
+
+
+
+
+                
             } else if (opcionIngresada.equals("3")) {//MOSTRAR ARRIENDOS
                 System.out.println("\n\n\n" + "==========ARRIENDOS REGISTRADOS==========");
                 for (Arriendo arriendo: arriendos) {
                     arriendo.mostrarInformacion();
                 }
-            } else if (opcionIngresada.equals("4")) {
-                
-            } else if (opcionIngresada.equals("5")) {
-                
-            } else if (opcionIngresada.equals("6")) {
-                
-            } else if (opcionIngresada.equals("7")) {
-                
-            } else if (opcionIngresada.equals("8")) {
+
+
+
+
+
+            } else if (opcionIngresada.equals("4")) {//REGISTRAR CLIENTE
+
+                // Cliente 
+
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
+                    for (Cliente cliente: clientes) {
+                        bufferedWriter.write(cliente.getRut() + ";" + cliente.getNombre() + ";" + cliente.getVigente() + "\n");
+                    }
+                    bufferedWriter.close();
+                } catch (IOException e) {}
+
+
+
+
+
+
+            } else if (opcionIngresada.equals("5")) {//REGISTRAR VEHICULO
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
+                    for (Vehiculo vehiculo: vehiculos) {
+                        bufferedWriter.write(vehiculo.getPatente() + ";" + vehiculo.getMarca() + ";" + vehiculo.getModelo() + ";" + vehiculo.getYear() + ";" + vehiculo.getCondicion() + "\n");
+                    }
+                    bufferedWriter.close();
+                } catch (IOException e) {}
+
+
+
+
+
+
+            } else if (opcionIngresada.equals("6")) {//REGITRAR ARRIENDO
+                try {
+                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
+                    for (Arriendo arriendo: arriendos) {
+                        bufferedWriter.write(arriendo.getNumero() + ";" + arriendo.getVehiculo().getPatente() + ";" + arriendo.getCliente().getRut() + ";" + arriendo.getFecha() + ";" + arriendo.getDuracionDias() + ";" + arriendo.getPrecioPorDia() + "\n");
+                    }
+                    bufferedWriter.close();
+                } catch (IOException e) {}
+
+
+
+
+
+            } else if (opcionIngresada.equals("7")) {//DEVOLVER AUTO AL RENT A CAR
+
+
+
+
+
+
+
+
+
+            } else if (opcionIngresada.equals("8")) {//DESHABILITAR CLIENTE
+
+
+
+
+
+
 
             } else if (opcionIngresada.equals("9")) {
+                scanner.close();    
                 break;
+
+
+
+
+
+
+
+
             } else {
-                System.out.println("\n\n\nIngresaste un valor inválido. Inténtelo denuevo.\n\n\n");
+                System.out.println("\n\n\nIngresaste un valor inválido. Inténtelo denuevo.\n");
             }
 
         }
-
+        
 
         System.out.println("Programa finalizado!!!");
+
+
+
+
+
+
     }
 
 
@@ -128,7 +213,8 @@ public class Main {
 
 
 
-    
+
+
     public static ArrayList<String> leerArchivo(String nombreArchivo) {
         ArrayList<String> interiorArchivo = new ArrayList<String>();
 

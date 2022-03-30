@@ -37,6 +37,10 @@ public class Arriendo {
 	}
 	
 	public int getDuracionDias() {
+		return this.precioPorDia;
+	}
+	
+	public int getPrecioPorDia() {
 		return this.duracionDias;
 	}
 	
