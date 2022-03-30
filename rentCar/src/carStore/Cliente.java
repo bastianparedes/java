@@ -6,9 +6,10 @@ public class Cliente {
     private String nombre;
     private boolean vigente = true;
 
-    public Cliente(String rut, String nombre) {
+    public Cliente(String rut, String nombre, boolean vigente) {
         this.rut = rut;
         this.nombre = nombre;
+        this.vigente = vigente;
     }
 
     
@@ -32,4 +33,12 @@ public class Cliente {
     	this.vigente = false;
     }
     
+    public void mostrarInformacion() {
+
+        System.out.println(
+            "Rut: " + this.rut + "\n"
+             + "    " + "Nombre: " + this.nombre + "\n"
+             + "    " + "Vigente: " + this.vigente + "\n"
+        );
+    }
 }

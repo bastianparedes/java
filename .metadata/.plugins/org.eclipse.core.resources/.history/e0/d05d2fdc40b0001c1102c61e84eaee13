@@ -1,0 +1,39 @@
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import carStore.Arriendo;
+import carStore.Cliente;
+import carStore.Vehiculo;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+
+
+		FileReader filenew = new FileReader("C:\\Users\\basti\\Desktop\\BD\\vehiculos.txt");
+
+	
+
+
+
+
+
+		//Scanner delimitar = new Scanner(linea);
+				
+		//delimitar.useDelimiter("\\s*,\\s*");
+		
+		//scanner.close();
+		
+
+
+        
+        System.out.println("Programa finalizado.");
+    }
+
+}
+

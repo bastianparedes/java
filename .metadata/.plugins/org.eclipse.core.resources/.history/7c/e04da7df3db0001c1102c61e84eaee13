@@ -1,0 +1,77 @@
+
+import java.util.Scanner;
+import java.io.BufferedReader
+import java.io.FileReader;
+
+import carStore.Arriendo;
+import carStore.Cliente;
+import carStore.Vehiculo;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+        int opcionIngresada;
+        
+        while (true) {
+        	System.out.println(""
+        		+ "Ingresa el número que corresponda a lo que quieras hacer\n"
+        		+ "1: Ver los vehículos registrados\n"
+        		+ "2: Ver los clientes registrados\n"
+        		+ "3: Ver los ticket emitidos\n"
+        		+ "4: Registrar nuevo vehículon'n"
+        		+ "5: Registrar nuevo cliente\n"
+        		+ "6: Generar nuevo arriendo\n"
+        		+ "7: Finalizar programa\n\n"
+        		+ "¿Cuál es tu opción elegida?"
+			);
+        	
+        	FileReader = 
+        	//Scanner scanner = new Scanner(System.in);
+        	//opcionIngresada = scanner.nextByte();
+        	
+        	
+        	//        	if (opcionIngresada == 1) {
+        	//        		
+        	//} else if (opcionIngresada == 2) {
+        	//        		
+        	//} else if (opcionIngresada == 3) {
+        	//        		break;
+        	//}
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+        	
+
+           
+        	//int[] numerosValidos = {1,2,3,4,5,6};
+        	//boolean numeroEsValido = IntStream.of(numerosValidos).anyMatch(n -> n == opcionIngresada);
+        	//System.out.println(""
+            //if (opcion)
+        	
+        	break;
+        	
+        	
+        	
+        	
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        System.out.println("Programa finalizado.");
+    }
+
+}
+

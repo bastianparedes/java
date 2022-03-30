@@ -57,13 +57,10 @@ public class Arriendo {
 		return this.valido;
 	}
 
-	
-	
-	
-	
-	
-	
-	
+
+	public void 
+
+
 	
 	public boolean devolver(Vehiculo vehiculoDevuelto, String fechaDevolucion) {
 		this.vehiculo.setCondicion("D");

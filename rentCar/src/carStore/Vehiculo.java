@@ -8,12 +8,12 @@ public class Vehiculo {
     private int year;
     private String condicion = "D";
 
-    public Vehiculo(int year) {
-    	Scanner scanner = new Scanner(System.in);
-    	this.patente = pedirAtributoEnMayusculas("Por favor introduzca la patente del vehiculo en mayusculas:");
-    	this.marca = pedirAtributoEnMayusculas("Por favor introduzca la marca del vehiculo en mayusculas:");
-    	this.modelo = pedirAtributoEnMayusculas("Por favor introduzca el modelo del vehiculo en mayusculas:");
+    public Vehiculo(String patente, String marca, String modelo, int year, String condicion) {
+    	this.patente = patente;
+    	this.marca = marca;
+    	this.modelo = modelo;
         this.year = year;
+        this.condicion = condicion;
     }
 
     public String getPatente() {
@@ -39,7 +39,7 @@ public class Vehiculo {
     public void setCondicion(String nuevaCondicion) {
     	while (nuevaCondicion != "D" && nuevaCondicion != "A" && nuevaCondicion != "M") {
     		Scanner scanner = new Scanner(System.in);
-    		System.out.println ("Solo se aceptan los valores \"D\", \"A\" y \"M\"");
+    		System.out.println("Solo se aceptan los valores \"D\", \"A\" y \"M\"");
     		nuevaCondicion = scanner.nextLine();
     	}
     	this.condicion = nuevaCondicion;
@@ -53,7 +53,7 @@ public class Vehiculo {
     	String valor;
     	
     	while (true) {
-    		System.out.println (mensaje);
+    		System.out.println(mensaje);
             valor = scanner.nextLine();
 
             if (valor.equals(valor.toUpperCase())) {
@@ -62,7 +62,15 @@ public class Vehiculo {
     	}
     }
 
-    
+    public void mostrarInformacion() {
+        System.out.println(
+            "Patente: " + this.patente + "\n"
+             + "    " + "Marca: " + this.marca + "\n"
+             + "    " + "Modelo: " + this.modelo + "\n"
+             + "    " + "Año: " + this.year + "\n"
+             + "    " + "Condición: " + this.condicion + "\n"
+        );
+    }
     
     
 }
