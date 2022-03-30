@@ -59,15 +59,4 @@ public class Arriendo {
 
 	
 	
-	
-	
-	
-	
-	
-	
-	public boolean devolver(Vehiculo vehiculoDevuelto, String fechaDevolucion) {
-		this.vehiculo.setCondicion("D");
-		return true;
-	}
-	
 }

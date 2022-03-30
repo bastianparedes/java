@@ -11,11 +11,6 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    
-    
-    
-    
-    
     public String getRut() {
         return this.rut;
     }
