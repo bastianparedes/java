@@ -1,0 +1,58 @@
+package carStore;
+
+public class Arriendo {
+    private int numero;
+    private Vehiculo vehiculo;
+    private Cliente cliente;
+    private String fecha;
+    private int duracionDias;
+    private int monto;
+    private boolean valido = true;
+
+
+    public Arriendo(int numero, Vehiculo vehiculo, Cliente cliente, String fecha, int duracionDias, int precioPorDia) {
+        this.numero = numero;
+        this.vehiculo = vehiculo;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.duracionDias = duracionDias;
+        this.monto = duracionDias * precioPorDia;
+        
+        if (vehiculo.getCondicion() != "D") {
+        	System.out.println("El vehículo ingresado no está disponible.");
+        	this.valido = false;
+        } else if (!cliente.getVigente()) {
+        	System.out.println("El cliente ingresado no está vigente.");
+        	this.valido = false;
+        }
+        
+        return this.valido;
+    }    
+
+	public int getNumero() {
+    	return numero;
+    }
+	    
+	public Vehiculo getVehiculo() {
+		return vehiculo;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	
+	public String getFecha() {
+		return fecha;
+	}
+	
+	public int getDuracionDias() {
+		return duracionDias;
+	}
+	
+	public int getMonto() {
+		return monto;
+	}
+
+	
+	
+}

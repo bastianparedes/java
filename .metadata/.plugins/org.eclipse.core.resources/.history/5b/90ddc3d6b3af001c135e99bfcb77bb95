@@ -1,0 +1,27 @@
+
+import carStore.Arriendo;
+import carStore.Cliente;
+import carStore.Vehiculo;
+
+public class Main {
+    int number = 1;
+
+
+    public static void main(String[] args) {
+    	
+        Cliente cliente = new Cliente("19111648-8", "Metrik el macho");
+        System.out.println("CAR1");
+        Vehiculo vehiculo = new Vehiculo("HDGZ41", "Suzuki", "Alto 800", 2015);
+        System.out.println("CAR2");
+        Arriendo arriendo = new Arriendo(1, vehiculo, cliente, "01/01/1990", 5, 10000);
+        System.out.println("CAR3");
+
+    }
+
+
+
+    public static void print(String object) {
+        System.out.println(object);
+    }
+}
+

@@ -1,0 +1,60 @@
+package carStore;
+import java.util.Scanner;
+
+public class Vehiculo {
+    private String patente;
+    private String marca;
+    private String modelo;
+    private int año;
+    private char condicion = 'D';
+
+    public Vehiculo(int year) {
+    	Scanner scanner = new Scanner(System.in);
+    	this.patente = pedirAtributoEnMayusculas("Por favor introduzca la patente del vehículo en mayúsculas:");
+    	this.marca = pedirAtributoEnMayusculas("Por favor introduzca la marca del vehículo en mayúsculas:");
+    	this.modelo = pedirAtributoEnMayusculas("Por favor introduzca el modelo del vehículo en mayúsculas:");
+        this.year = year;
+    }
+
+    public String getPatente() {
+        return this.patente;
+    }
+
+    public String getMarca() {
+        return this.marca;
+    }
+
+    public String getModelo() {
+        return this.modelo;
+    }
+
+    public int getAño() {
+        return this.año;
+    }
+
+    public char getCondicion() {
+        return this.condicion;
+    }
+
+    public void setCondicion(char nuevaCondicion) {
+    	this.condicion = nuevaCondicion;
+    }
+
+
+    
+    
+    private String pedirAtributoEnMayusculas(String mensaje) {
+    	Scanner scanner = new Scanner(System.in);
+    	String valor;
+    	
+    	while (true) {
+    		System.out.println (mensaje);
+            valor = scanner.nextLine();
+
+            if (valor.equals(valor.toUpperCase())) {
+            	return valor;
+            }
+    	}
+    }
+    
+}

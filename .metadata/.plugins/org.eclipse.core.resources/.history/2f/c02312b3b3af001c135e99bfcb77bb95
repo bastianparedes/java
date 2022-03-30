@@ -1,0 +1,23 @@
+package carStore;
+
+public class Arriendo {
+    private int numero;
+    private Vehiculo vehiculo;
+    private Cliente cliente;
+    private String fecha;
+    private int duracionDias;
+    private int monto;
+
+
+    public Arriendo(int numero, Vehiculo vehiculo, Cliente cliente, String fecha, int duracionDias, int precioPorDia) {
+        this.numero = numero;
+        this.vehiculo = vehiculo;
+        this.cliente = cliente;
+        this.fecha = fecha;
+        this.duracionDias = duracionDias;
+        this.monto = duracionDias * precioPorDia;
+        sout
+    }
+
+
+}

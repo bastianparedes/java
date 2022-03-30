@@ -1,0 +1,55 @@
+package carStore;
+import java.util.Scanner;
+
+public class Vehiculo {
+    private String patente;
+    private String marca;
+    private String modelo;
+    private int año;
+    private char condicion = 'D';
+
+    public Vehiculo(String marca, String modelo, int año) {
+    	Scanner scanner = new Scanner(System.in);
+    	
+    	while (true) {
+    		System.out.println ("Por favor introduzca la patente del vehículo: ");
+            String patente = scanner.nextLine();
+            System.out.println(patente);
+            
+            if () {
+            	break;
+            }
+    	}
+    	
+    	
+        this.patente = patente;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.año = año;
+    }
+
+    public String getPatente() {
+        return this.patente;
+    }
+
+    public String getMarca() {
+        return this.marca;
+    }
+
+    public String getModelo() {
+        return this.modelo;
+    }
+
+    public int getAño() {
+        return this.año;
+    }
+
+    public char getCondicion() {
+        return this.condicion;
+    }
+
+    public void setCondicion(char nuevaCondicion) {
+    	this.condicion = nuevaCondicion;
+    }
+
+}

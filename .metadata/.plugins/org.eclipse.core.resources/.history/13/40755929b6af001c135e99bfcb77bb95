@@ -1,0 +1,30 @@
+package carStore;
+
+public class Cliente {
+
+    private String rut;
+    private String nombre;
+    private boolean vigente = true;
+
+    public Cliente(String rut, String nombre) {
+        this.rut = rut;
+        this.nombre = nombre;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public boolean getVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean nuevoVigente) {
+    	this.vigente = nuevoVigente;
+    }
+    
+}
