@@ -129,14 +129,7 @@ public class Main {
                 String nombre = scanner.nextLine().toUpperCase();
 
                 clientes.add(new Cliente(rut, nombre, true));
-                
-                try {
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
-                    for (Cliente cliente: clientes) {
-                        bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
-                    }
-                    bufferedWriter.close();
-                } catch (IOException e) {}
+                guardarClientes(clientes);
 
                 System.out.println("\nCliente ingresado con éxito");
 
@@ -158,14 +151,8 @@ public class Main {
 
                 vehiculos.add(new Vehiculo(patente, marca, modelo, year, "D"));
 
-                try {
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
-                    for (Vehiculo vehiculo: vehiculos) {
-                        bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
-                    }
-                    bufferedWriter.close();
-                } catch (IOException e) {}
-
+                guardarVehiculos(vehiculos);
+                
                 System.out.println("\nVehículo ingresado con éxito");
 
 
@@ -215,22 +202,14 @@ public class Main {
                 int precioDiario = scanner.nextInt();
                 boolean arriendoTerminado = false;
 
-                arriendos.add(new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioDiario, arriendoTerminado));
+                vehiculo.setCondicion("A");
+                Arriendo nuevoArriendo = new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioDiario, arriendoTerminado);
+                arriendos.add(nuevoArriendo);
 
-                try {
-                    BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
-                    for (Arriendo arriendo: arriendos) {
-                        bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
-                    }
-                    bufferedWriter.close();
-                } catch (IOException e) {}
-
-
-
-
-                // ===================================================== FALTA MODIFICAR CLIENTE
-                // ===================================================== FALTA MODIFICAR VEHÍCULO
-                System.out.println("\nArriendo ingresado con éxito");
+                guardarVehiculos(vehiculos);
+                guardarArriendos(arriendos);
+                
+                nuevoArriendo.mostrarTicket();
 
 
 
@@ -278,14 +257,8 @@ public class Main {
                         break;
                     } else { //modifica al cliente y los guarda todos
 
-                        try {
-                            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
-                            clienteModificado.setVigente(false);
-                            for (Cliente cliente: clientes) {
-                                bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
-                            }
-                            bufferedWriter.close();
-                        } catch (IOException e) {}
+                        clienteModificado.setVigente(false);
+                        guardarClientes(clientes);                        
                         System.out.println("Cliente deshabilitado con éxito.");
                         break;
 
@@ -324,13 +297,7 @@ public class Main {
                         }
 
                         vehiculoModificado.setCondicion(nuevaCondicion);
-                        try { //GUARDA EN LA BD LOS VEHICULOS
-                            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
-                            for (Vehiculo vehiculo: vehiculos) {
-                                bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
-                            }
-                            bufferedWriter.close();
-                        } catch (IOException e) {}
+                        guardarVehiculos(vehiculos);
                         break;
                     }
                 }
@@ -357,9 +324,6 @@ public class Main {
 
 
 
-
-
-
     public static ArrayList<String> leerArchivo(String nombreArchivo) {
         ArrayList<String> interiorArchivo = new ArrayList<String>();
 
@@ -378,6 +342,36 @@ public class Main {
         return interiorArchivo;
     }
 
+
+    public static void guardarClientes(ArrayList<Cliente> clientes) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
+            for (Cliente cliente: clientes) {
+                bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {}
+    }
+
+    public static void guardarVehiculos(ArrayList<Vehiculo> vehiculos) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
+            for (Vehiculo vehiculo: vehiculos) {
+                bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {}        
+    }
+
+    public static void guardarArriendos(ArrayList<Arriendo> arriendos) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
+            for (Arriendo arriendo: arriendos) {
+                bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {}
+    }
 
 }
 

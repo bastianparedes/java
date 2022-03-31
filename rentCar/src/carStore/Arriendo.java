@@ -87,7 +87,7 @@ public class Arriendo {
         //GUARDA LEL VEHÍCULO CON CONDICIÓN D
         this.vehiculo.setCondicion("D");//el cambio de esta linea también aplica a la base de datos cargada durante la ram
         try { //GUARDA EN LA BD LOS VEHICULOS
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("..\\BD\\vehiculos.txt"));
             for (Vehiculo vehiculo: vehiculos) {
                 bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
             }
@@ -96,7 +96,7 @@ public class Arriendo {
 
         this.setArriendoTerminado(true);
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("..\\BD\\arriendos.txt"));
             for (Arriendo arriendo: arriendos) {
                 bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
             }
