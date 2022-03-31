@@ -1,4 +1,4 @@
-// 0;HDGZ41;10111648-8;30/04/2019;15000;45
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -261,17 +261,10 @@ public class Main {
             } else {
                 System.out.println("\n\n\nIngresaste un valor inválido. Inténtelo denuevo.\n");
             }
-
         }
         
 
         System.out.println("Programa finalizado!!!");
-
-
-
-
-
-
     }
 
 
