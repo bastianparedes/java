@@ -9,11 +9,11 @@ public class Vehiculo {
     private String condicion = "D";
 
     public Vehiculo(String patente, String marca, String modelo, int year, String condicion) {
-    	this.patente = patente;
-    	this.marca = marca;
-    	this.modelo = modelo;
+    	this.patente = patente.toUpperCase();
+    	this.marca = marca.toUpperCase();
+    	this.modelo = modelo.toUpperCase();
         this.year = year;
-        this.condicion = condicion;
+        this.condicion = condicion.toUpperCase();
     }
 
     public String getPatente() {
@@ -35,6 +35,8 @@ public class Vehiculo {
     public String getCondicion() {
         return this.condicion;
     }
+
+
 
     public void setCondicion(String nuevaCondicion) {
     	while (nuevaCondicion != "D" && nuevaCondicion != "A" && nuevaCondicion != "M") {

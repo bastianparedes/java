@@ -1,2 +1,3 @@
 19111648-8;BASTIAN PAREDES;true
 20034534-k;Metrik Lopez;false
+12345678-9;Esteban Metrik;true

@@ -2,18 +2,18 @@ package carStore;
 
 public class Arriendo {
     private int numero;
+	private Cliente cliente;
     private Vehiculo vehiculo;
-    private Cliente cliente;
     private String fecha;
     private int duracionDias;
 	private int precioPorDia;
     private int monto;
 
 
-    public Arriendo(int numero, Vehiculo vehiculo, Cliente cliente, String fecha, int duracionDias, int precioPorDia) {
+    public Arriendo(int numero, Cliente cliente, Vehiculo vehiculo, String fecha, int duracionDias, int precioPorDia) {
         this.numero = numero;
+		this.cliente = cliente;
         this.vehiculo = vehiculo;
-        this.cliente = cliente;
         this.fecha = fecha;
         this.duracionDias = duracionDias;
 		this.precioPorDia = precioPorDia;
@@ -24,24 +24,24 @@ public class Arriendo {
     	return this.numero;
     }
 	    
-	public Vehiculo getVehiculo() {
-		return this.vehiculo;
-	}
-	
 	public Cliente getCliente() {
 		return this.cliente;
 	}
-	
+
+	public Vehiculo getVehiculo() {
+		return this.vehiculo;
+	}
+
 	public String getFecha() {
 		return this.fecha;
 	}
 	
 	public int getDuracionDias() {
-		return this.precioPorDia;
+		return this.duracionDias;
 	}
 	
 	public int getPrecioPorDia() {
-		return this.duracionDias;
+		return this.precioPorDia;
 	}
 	
 	public int getMonto() {
@@ -52,21 +52,13 @@ public class Arriendo {
 	public void mostrarInformacion() {
         System.out.println(
             "Numero: " + this.numero + "\n"
-			+ "    " + "Patente del vehículo: " + this.vehiculo.getPatente() + "\n"
 			+ "    " + "Rut del cliente: " + this.cliente.getRut() + "\n"
+			+ "    " + "Patente del vehículo: " + this.vehiculo.getPatente() + "\n"
 			+ "    " + "Fecha: " + this.fecha + "\n"
 			+ "    " + "Días de arriendo: " + this.duracionDias + "\n"
 			+ "    " + "Precio por cada día: " + this.precioPorDia + "\n"
         );
     }
-
-
-	
-	public boolean devolver(Vehiculo vehiculoDevuelto, String fechaDevolucion) {
-		this.vehiculo.setCondicion("D");
-		return true;
-	}
-	
 }
 
 
