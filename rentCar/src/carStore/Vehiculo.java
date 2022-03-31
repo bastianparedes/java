@@ -9,9 +9,9 @@ public class Vehiculo {
     private String condicion = "D";
 
     public Vehiculo(String patente, String marca, String modelo, int year, String condicion) {
-    	this.patente = patente.toUpperCase();
-    	this.marca = marca.toUpperCase();
-    	this.modelo = modelo.toUpperCase();
+        this.patente = patente.toUpperCase();
+        this.marca = marca.toUpperCase();
+        this.modelo = modelo.toUpperCase();
         this.year = year;
         this.condicion = condicion.toUpperCase();
     }
@@ -39,30 +39,9 @@ public class Vehiculo {
 
 
     public void setCondicion(String nuevaCondicion) {
-    	while (nuevaCondicion != "D" && nuevaCondicion != "A" && nuevaCondicion != "M") {
-    		Scanner scanner = new Scanner(System.in);
-    		System.out.println("Solo se aceptan los valores \"D\", \"A\" y \"M\"");
-    		nuevaCondicion = scanner.nextLine();
-    	}
-    	this.condicion = nuevaCondicion;
+        this.condicion = nuevaCondicion;
     }
 
-
-    
-    
-    private String pedirAtributoEnMayusculas(String mensaje) {
-    	Scanner scanner = new Scanner(System.in);
-    	String valor;
-    	
-    	while (true) {
-    		System.out.println(mensaje);
-            valor = scanner.nextLine();
-
-            if (valor.equals(valor.toUpperCase())) {
-            	return valor;
-            }
-    	}
-    }
 
     public void mostrarInformacion() {
         System.out.println(

@@ -57,12 +57,13 @@ public class Main {
             String patenteVehiculo = arrayArriendo[2];
             LocalDate fecha = LocalDate.parse(arrayArriendo[3]);
             int duracionDias = Integer.parseInt(arrayArriendo[4]);
-            int precioPorDia = Integer.parseInt(arrayArriendo[5]);
+            int precioDiario = Integer.parseInt(arrayArriendo[5]);
+            boolean arriendoTerminado = Boolean.parseBoolean(arrayArriendo[6]);
 
             Cliente cliente = clientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rutCliente)).findAny().orElse(null);
             Vehiculo vehiculo = vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patenteVehiculo)).findAny().orElse(null);
 
-            Arriendo arriendo = new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioPorDia);
+            Arriendo arriendo = new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioDiario, arriendoTerminado);
             arriendos.add(arriendo);
         }
 
@@ -83,7 +84,8 @@ public class Main {
                 + "6: Registrar nuevo arriendo.\n"
                 + "7: Realizar devolución de vehículo.\n"
                 + "8: Deshabilitar cliente.\n"
-                + "9: Cerrar programa.\n"
+                + "9: Cambiar la condición de un vehículo.\n"
+                + "10: Cerrar programa.\n"
                 + "¿Qué deseas hacer?"
             );
 
@@ -131,7 +133,7 @@ public class Main {
                 try {
                     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
                     for (Cliente cliente: clientes) {
-                        bufferedWriter.write(cliente.getRut() + ";" + cliente.getNombre() + ";" + cliente.getVigente() + "\n");
+                        bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
                     }
                     bufferedWriter.close();
                 } catch (IOException e) {}
@@ -159,7 +161,7 @@ public class Main {
                 try {
                     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
                     for (Vehiculo vehiculo: vehiculos) {
-                        bufferedWriter.write(vehiculo.getPatente() + ";" + vehiculo.getMarca() + ";" + vehiculo.getModelo() + ";" + vehiculo.getYear() + ";" + vehiculo.getCondicion() + "\n");
+                        bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
                     }
                     bufferedWriter.close();
                 } catch (IOException e) {}
@@ -210,14 +212,15 @@ public class Main {
                 System.out.println("Ingresa la cantidad de días que durará el arriendo:");
                 int duracionDias = scanner.nextInt();
                 System.out.println("Ingresa el precio de cada día de arriendo:");
-                int precioPorDia = scanner.nextInt();
+                int precioDiario = scanner.nextInt();
+                boolean arriendoTerminado = false;
 
-                arriendos.add(new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioPorDia));
+                arriendos.add(new Arriendo(numero, cliente, vehiculo, fecha, duracionDias, precioDiario, arriendoTerminado));
 
                 try {
                     BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
                     for (Arriendo arriendo: arriendos) {
-                        bufferedWriter.write(arriendo.getNumero() + ";" + arriendo.getCliente().getRut() + ";" + arriendo.getVehiculo().getPatente() + ";" + arriendo.getFecha() + ";" + arriendo.getDuracionDias() + ";" + arriendo.getPrecioPorDia() + "\n");
+                        bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
                     }
                     bufferedWriter.close();
                 } catch (IOException e) {}
@@ -243,11 +246,15 @@ public class Main {
                     arriendo = arriendos.stream().filter(arriendoEnLista -> arriendoEnLista.getNumero() == numero).findAny().orElse(null);
                     if (arriendo == null) {
                         System.out.println("El número de arriendo ingresado no existe en la base de datos, inténtalo de nuevo.");
+                    } else if (arriendo.getArriendoTerminado()) {
+                        System.out.println("El vehículo del arriendo ya ha sido devuelto.");
                     } else {
                         break;
                     }
                 }
 
+                arriendo.devolverAuto(vehiculos, arriendos);
+                
 
 
 
@@ -255,21 +262,75 @@ public class Main {
 
 
 
-            } else if (opcionIngresada.equals("8")) {//DESHABILITAR CLIENTE
 
-                Cliente cliente;
-                while (true) {
+
+            } else if (opcionIngresada.equals("8")) { //DESHABILITAR CLIENTE
+
+                Cliente clienteModificado;
+                while (true) { //primero busca al cliente si existe, luego verifica si no estaba vigente de antes y finalmente lo deshabilita
                     System.out.println("Ingresa el rut del cliente:");
                     String rut = scanner.nextLine();
-                    cliente = clientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rut)).findAny().orElse(null);
-                    if (cliente == null) {
+                    clienteModificado = clientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rut)).findAny().orElse(null);
+                    if (clienteModificado == null) {
                         System.out.println("El rut ingresado no pertenece a ningun cliente registrado en nuestra base de datos.");
-                    } else if (!cliente.getVigente()) {
+                    } else if (!clienteModificado.getVigente()) {
                         System.out.println("El usuario ingresado no se encontraba vigente.");
                         break;
+                    } else { //modifica al cliente y los guarda todos
+
+                        try {
+                            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
+                            clienteModificado.setVigente(false);
+                            for (Cliente cliente: clientes) {
+                                bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
+                            }
+                            bufferedWriter.close();
+                        } catch (IOException e) {}
+                        System.out.println("Cliente deshabilitado con éxito.");
+                        break;
+
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
+            } else if (opcionIngresada.equals("9")) {//CAMBIAR CONDICION VEHICULO
+                Vehiculo vehiculoModificado;
+                while (true) {
+                    System.out.println("Ingresa la patente del vehículo:");
+                    String patente = scanner.nextLine().toUpperCase();
+                    vehiculoModificado = vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patente)).findAny().orElse(null);
+                    if (vehiculoModificado == null) {
+                        System.out.println("La patente ingresada no pertenece a ningún vehículo registrado en nuestra base de datos.");
+                    } else if (vehiculoModificado.getCondicion().equals("A")) {
+                        System.out.println("La patente ingresada pertenece a un vehículo que está siendo arrendado.");
                     } else {
-                        cliente.setVigente(false);
-                        // HACER QUE DEJE DE ESTAR VIGENTE
+                        String nuevaCondicion;
+                        while (true) { //PIDE LA NUEVA CONDICIÓN
+                            System.out.println("Ingresa la nueva condicion del vehículo (D o M):");
+                            nuevaCondicion = scanner.nextLine().toUpperCase();
+                            if (!nuevaCondicion.equals("D") && !nuevaCondicion.equals("M")) {
+                                System.out.println("Esa no es una condición válida");
+                            } else {
+                                break;
+                            }
+                        }
+
+                        vehiculoModificado.setCondicion(nuevaCondicion);
+                        try { //GUARDA EN LA BD LOS VEHICULOS
+                            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
+                            for (Vehiculo vehiculo: vehiculos) {
+                                bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
+                            }
+                            bufferedWriter.close();
+                        } catch (IOException e) {}
                         break;
                     }
                 }
@@ -278,18 +339,12 @@ public class Main {
 
 
 
-            } else if (opcionIngresada.equals("9")) {
-                scanner.close();    
+
+
+            } else if (opcionIngresada.equals("10")) {//TERMINAR PROGRAMA
+                scanner.close();
                 break;
-
-
-
-
-
-
-
-
-            } else {
+            }else {
                 System.out.println("\n\n\nIngresaste un valor inválido. Inténtelo denuevo.\n");
             }
         }

@@ -30,7 +30,7 @@ public class Cliente {
     }
 
     public void setVigente(boolean nuevoVigente) {
-    	this.vigente = nuevoVigente;
+        this.vigente = nuevoVigente;
     }
     
     public void mostrarInformacion() {
