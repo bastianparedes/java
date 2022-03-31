@@ -29,8 +29,8 @@ public class Cliente {
         return this.vigente;
     }
 
-    public void deshabilitar() {
-    	this.vigente = false;
+    public void setVigente(boolean nuevoVigente) {
+    	this.vigente = nuevoVigente;
     }
     
     public void mostrarInformacion() {

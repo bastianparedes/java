@@ -1,16 +1,17 @@
 package carStore;
+import java.time.LocalDate;
 
 public class Arriendo {
     private int numero;
 	private Cliente cliente;
     private Vehiculo vehiculo;
-    private String fecha;
+    private LocalDate fecha;
     private int duracionDias;
 	private int precioPorDia;
     private int monto;
 
 
-    public Arriendo(int numero, Cliente cliente, Vehiculo vehiculo, String fecha, int duracionDias, int precioPorDia) {
+    public Arriendo(int numero, Cliente cliente, Vehiculo vehiculo, LocalDate fecha, int duracionDias, int precioPorDia) {
         this.numero = numero;
 		this.cliente = cliente;
         this.vehiculo = vehiculo;
@@ -32,7 +33,7 @@ public class Arriendo {
 		return this.vehiculo;
 	}
 
-	public String getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 	

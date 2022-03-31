@@ -20,7 +20,7 @@ public class Main {
         ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
         ArrayList<Arriendo> arriendos = new ArrayList<Arriendo>();
 
-        // GUARDA Y MUESTRA LOS CLIENTES
+        // GUARDA EN MEMORIA LOS CLIENTES
         for (String rawCliente: leerArchivo("clientes.txt")) {
             String[] arrayCliente = rawCliente.split(";");
 
@@ -33,7 +33,7 @@ public class Main {
         }
 
 
-        // GUARDA Y MUESTRA LOS VEHÍCULOS
+        // GUARDA EN MEMORIA LOS VEHÍCULOS
         for (String rawVehiculo: leerArchivo("vehiculos.txt")) {
             String[] arrayVehiculo = rawVehiculo.split(";");
 
@@ -48,14 +48,14 @@ public class Main {
         }
 
 
-        // GUARDA Y MUESTRA LOS ARRIENDOS
+        // GUARDA EN MEMORIA LOS ARRIENDOS
         for (String rawArriendo: leerArchivo("arriendos.txt")) {
             String[] arrayArriendo = rawArriendo.split(";");
 
             int numero = Integer.parseInt(arrayArriendo[0]);
             String rutCliente = arrayArriendo[1];
             String patenteVehiculo = arrayArriendo[2];
-            String fecha = arrayArriendo[3];
+            LocalDate fecha = LocalDate.parse(arrayArriendo[3]);
             int duracionDias = Integer.parseInt(arrayArriendo[4]);
             int precioPorDia = Integer.parseInt(arrayArriendo[5]);
 
@@ -206,8 +206,7 @@ public class Main {
                     }
                 }
 
-                System.out.println("Ingresa la fecha de hoy:");
-                String fecha = scanner.nextLine();
+                LocalDate fecha = LocalDate.now();
                 System.out.println("Ingresa la cantidad de días que durará el arriendo:");
                 int duracionDias = scanner.nextInt();
                 System.out.println("Ingresa el precio de cada día de arriendo:");
@@ -223,6 +222,11 @@ public class Main {
                     bufferedWriter.close();
                 } catch (IOException e) {}
 
+
+
+
+                // ===================================================== FALTA MODIFICAR CLIENTE
+                // ===================================================== FALTA MODIFICAR VEHÍCULO
                 System.out.println("\nArriendo ingresado con éxito");
 
 
@@ -232,6 +236,17 @@ public class Main {
 
             } else if (opcionIngresada.equals("7")) {//DEVOLVER AUTO AL RENT A CAR
 
+                Arriendo arriendo;
+                while (true) {
+                    System.out.println("Ingresa el número del arriendo:");
+                    int numero = scanner.nextInt();
+                    arriendo = arriendos.stream().filter(arriendoEnLista -> arriendoEnLista.getNumero() == numero).findAny().orElse(null);
+                    if (arriendo == null) {
+                        System.out.println("El número de arriendo ingresado no existe en la base de datos, inténtalo de nuevo.");
+                    } else {
+                        break;
+                    }
+                }
 
 
 
@@ -242,7 +257,22 @@ public class Main {
 
             } else if (opcionIngresada.equals("8")) {//DESHABILITAR CLIENTE
 
-
+                Cliente cliente;
+                while (true) {
+                    System.out.println("Ingresa el rut del cliente:");
+                    String rut = scanner.nextLine();
+                    cliente = clientes.stream().filter(clienteEnLista -> clienteEnLista.getRut().equals(rut)).findAny().orElse(null);
+                    if (cliente == null) {
+                        System.out.println("El rut ingresado no pertenece a ningun cliente registrado en nuestra base de datos.");
+                    } else if (!cliente.getVigente()) {
+                        System.out.println("El usuario ingresado no se encontraba vigente.");
+                        break;
+                    } else {
+                        cliente.setVigente(false);
+                        // HACER QUE DEJE DE ESTAR VIGENTE
+                        break;
+                    }
+                }
 
 
 
