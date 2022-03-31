@@ -209,7 +209,9 @@ public class Main {
                 guardarVehiculos(vehiculos);
                 guardarArriendos(arriendos);
                 
-                nuevoArriendo.mostrarTicket();
+                System.out.println("Arriendo ingresado con éxito");
+                System.out.println(nuevoArriendo.ticket());
+                
 
 
 
@@ -232,11 +234,13 @@ public class Main {
                     }
                 }
 
-                arriendo.devolverAuto(vehiculos, arriendos);
+                arriendo.getVehiculo().setCondicion("D");//el cambio de esta linea también aplica a la base de datos cargada durante la ram
+                arriendo.setArriendoTerminado(true);
                 
+                guardarVehiculos(vehiculos);
+                guardarArriendos(arriendos);
 
-
-
+                System.out.println("Devolución del vehículo registrada");
 
 
 
@@ -258,13 +262,12 @@ public class Main {
                     } else { //modifica al cliente y los guarda todos
 
                         clienteModificado.setVigente(false);
-                        guardarClientes(clientes);                        
-                        System.out.println("Cliente deshabilitado con éxito.");
+                        guardarClientes(clientes);
                         break;
 
                     }
                 }
-
+                System.out.println("Cliente deshabilitado con éxito.");
 
 
 
@@ -301,6 +304,7 @@ public class Main {
                         break;
                     }
                 }
+                System.out.println("La nueva condición del vehículo ha sido registrada");
 
 
 
@@ -347,7 +351,7 @@ public class Main {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\clientes.txt"));
             for (Cliente cliente: clientes) {
-                bufferedWriter.write(cliente.getRut() + ';' + cliente.getNombre() + ';' + cliente.getVigente() + "\n");
+                bufferedWriter.write(cliente.getRut() + ";" + cliente.getNombre() + ";" + cliente.getVigente() + "\n");
             }
             bufferedWriter.close();
         } catch (IOException e) {}
@@ -357,7 +361,7 @@ public class Main {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\vehiculos.txt"));
             for (Vehiculo vehiculo: vehiculos) {
-                bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
+                bufferedWriter.write(vehiculo.getPatente() + ";" + vehiculo.getMarca() + ";" + vehiculo.getModelo() + ";" + vehiculo.getYear() + ";" + vehiculo.getCondicion() + "\n");
             }
             bufferedWriter.close();
         } catch (IOException e) {}        
@@ -367,7 +371,7 @@ public class Main {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("BD\\arriendos.txt"));
             for (Arriendo arriendo: arriendos) {
-                bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
+                bufferedWriter.write(arriendo.getNumero() + ";" + arriendo.getCliente().getRut() + ";" + arriendo.getVehiculo().getPatente() + ";" + arriendo.getFecha() + ";" + arriendo.getDuracionDias() + ";" + arriendo.getPrecioDiario() + ";" + arriendo.getArriendoTerminado() + "\n");
             }
             bufferedWriter.close();
         } catch (IOException e) {}

@@ -77,33 +77,25 @@ public class Arriendo {
         );
     }
 
-    public void mostrarTicket() {
-        System.out.println(
-            "");
+    public String ticket() {
+        return
+                "__________________________________________________________________\n"
+            + "|            TICKET ARRIENDO DE VEHÍCULO\n"
+            + "|        NÚMERO ARRIENDO: " + this.numero + "\n"
+            + "|        VEHÍCULO       : " + this.vehiculo.getPatente() + " " + this.vehiculo.getMarca() + " " + this.vehiculo.getModelo() + "\n"
+            + "|        PRECIO DIARIO  : $" + this.precioDiario + "\n"
+            + "|FECHA         CLIENTE                     DIAS       A PAGAR" + "\n"
+            + "|\n"
+            + "|------------------------------------------------------------------\n"
+            + "|" + this.fecha + "    " + this.cliente.getRut() + "/" + this.cliente.getNombre() + "   " + this.duracionDias + " días    $" + this.monto + "\n"
+            + "|------------------------------------------------------------------\n"
+            + "|\n"
+            + "|\n"
+            + "|                                  _______________\n"
+            + "|                                   FIRMA CLIENTE\n"
+            + "|__________________________________________________________________";
     }
 
-
-    public void devolverAuto(ArrayList<Vehiculo> vehiculos, ArrayList<Arriendo> arriendos) {
-        //GUARDA LEL VEHÍCULO CON CONDICIÓN D
-        this.vehiculo.setCondicion("D");//el cambio de esta linea también aplica a la base de datos cargada durante la ram
-        try { //GUARDA EN LA BD LOS VEHICULOS
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("..\\BD\\vehiculos.txt"));
-            for (Vehiculo vehiculo: vehiculos) {
-                bufferedWriter.write(vehiculo.getPatente() + ';' + vehiculo.getMarca() + ';' + vehiculo.getModelo() + ';' + vehiculo.getYear() + ';' + vehiculo.getCondicion() + "\n");
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {}
-
-        this.setArriendoTerminado(true);
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("..\\BD\\arriendos.txt"));
-            for (Arriendo arriendo: arriendos) {
-                bufferedWriter.write(arriendo.getNumero() + ';' + arriendo.getCliente().getRut() + ';' + arriendo.getVehiculo().getPatente() + ';' + arriendo.getFecha() + ';' + arriendo.getDuracionDias() + ';' + arriendo.getPrecioDiario() + ';' + arriendo.getArriendoTerminado() + "\n");
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {}
-
-    }
 
 
 }
