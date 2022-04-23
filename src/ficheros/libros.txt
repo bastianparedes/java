@@ -1,0 +1,3 @@
+1234;Los origenes;Cesar;3;2
+1235;Las hijas de Tara;Da vinci;9;7
+423;Papelucho;Rowling;1;1
