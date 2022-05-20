@@ -36,38 +36,56 @@ public class Main {
     	cargarArriendosConCuotasEnMemoria();
     	//vehiculos.removeIf(vehiculoEnMemoria -> vehiculoEnMemoria.getPatente().equals(patente));
 
-
-    	// Creando el Marco        
-        JFrame frame = new JFrame("Chat Frame");       
+    	// Main Frame        
+        JFrame frame = new JFrame("Rent A Car");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
-        frame.setSize(600, 400);        
+        frame.setSize(600, 400);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        // Creando MenuBar y agregando componentes   
-        JMenuBar mb = new JMenuBar();       
-        JMenu m1 = new JMenu("ARCHIVO");       
-        JMenu m2 = new JMenu("Ayuda");       
-        mb.add(m1);       
-        mb.add(m2);       
-        JMenuItem m11 = new JMenuItem("Abrir");       
-        JMenuItem m22 = new JMenuItem("Guardar como");       
-        m1.add(m11);       
-        m1.add(m22);        
 
-        // Creando el panel en la parte inferior y agregando componentes       
-        JPanel panel = new JPanel(); // el panel no está visible en la salida      
-        JLabel label = new JLabel("Introducir texto");       
-        JTextField tf = new JTextField(10); // acepta hasta 10 caracteres        
-        JButton send = new JButton("Enviar");       
-        JButton reset = new JButton("Restablecer");       
-       
+        JLabel labelIntroducirTexto = new JLabel("Introducir texto");
+        c.fill = GridBagConstraints.VERTICAL;
+        c.weightx = 1;
+        c.weighty = 2;
+        c.gridx = 1;
+        c.gridy = 0;
+        frame.getContentPane().add(labelIntroducirTexto, c);
 
-        // Área de texto en el centro    
-        JTextArea ta = new JTextArea();        
+        JButton botonAgregarNuevoCliente = new JButton("Ingresar nuevo cliente");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 1;
+        c.gridheight = 1;
+        frame.getContentPane().add(botonAgregarNuevoCliente, c);
 
-        // Agregar componentes al marco.      
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);       
-        frame.getContentPane().add(BorderLayout.NORTH, mb);       
-        frame.getContentPane().add(BorderLayout.CENTER, ta);       
+        JButton botonGuardarArriendoYMostrarCuotas = new JButton("Guardar arriendo y mostrar cuotas >>");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 2;
+        frame.getContentPane().add(botonGuardarArriendoYMostrarCuotas, c);
+
+        JButton botonPagarPrimeraCuota = new JButton("Pagar primera cuota");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 3;
+        frame.getContentPane().add(botonPagarPrimeraCuota, c);
+    	
+
+
+        JTextField textField = new JTextField(20);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridx = 1;
+        c.gridy = 4;
+        frame.getContentPane().add(textField, c);
+
+
+
+
         frame.setVisible(true); 
     }
 

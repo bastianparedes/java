@@ -39,7 +39,6 @@ public class Cuota {
 	}
 	
 	public boolean pagarCuota() {
-		
 		return true;
 	}
 	
