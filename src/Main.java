@@ -7,473 +7,117 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
-//import java.time.LocalDate;
+import clases.Cliente;
+import clases.Vehiculo;
+import clases.Cuota;
+import clases.Arriendo;
+import clases.ArriendoConCuotas;
 
-import clases.Estudiante;
-import clases.Docente;
-import clases.Libro;
+import javax.swing.*;
 
+import java.awt.*;
 
 
 
 public class Main {
 
-	public static ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
-	public static ArrayList<Docente> docentes = new ArrayList<Docente>();
-	public static ArrayList<Libro> libros = new ArrayList<Libro>();
+	public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	public static ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+	public static ArrayList<Arriendo> arriendos = new ArrayList<Arriendo>();
+	public static ArrayList<ArriendoConCuotas> arriendosConCuotas = new ArrayList<ArriendoConCuotas>();
+	
+
 
 	
     public static void main(String[] args) {
-    	cargarUsuariosEnMemoria();
-    	cargarLibrosEnMemoria();
-
-    	Scanner scanner = new Scanner(System.in);
-        String opcionIngresada;
-        
-
-        while (true) {
-            System.out.println(
-                "\n\nIngresa uno de los numeros de la lista mostrada a continuacion\n"
-                + "1: Mostrar los usuarios registrados.\n"
-                + "2: Mostrar los libros registrados.\n"
-                + "3: Registrar nuevo usuario.\n"
-                + "4: Registrar nuevo libro.\n"
-                + "5: Modificar usuario.\n"
-                + "6: Modificar libro.\n"
-                + "7: Eliminar usuario.\n"
-                + "8: Eliminar libro.\n"
-                + "9: Prestar libro.\n"
-                + "10: Devolver libro.\n"
-                + "11: Cerrar programa.\n"
-                + "Que deseas hacer? "
-            );
-
-            opcionIngresada = scanner.nextLine();
+    	cargarClientesEnMemoria();
+    	cargarVehiculosEnMemoria();
+    	cargarArriendosEnMemoria();
+    	cargarArriendosConCuotasEnMemoria();
+    	//vehiculos.removeIf(vehiculoEnMemoria -> vehiculoEnMemoria.getPatente().equals(patente));
 
 
-            if (opcionIngresada.equals("1")) {
-            	mostrarUsuarios();
-            } else if (opcionIngresada.equals("2")) {
-            	mostrarLibros();
-            } else if (opcionIngresada.equals("3")) {
-            	registrarUsuario();
-            } else if (opcionIngresada.equals("4")) {
-            	registrarLibro();
-            } else if (opcionIngresada.equals("5")) {
-            	modificarUsuario();
-            } else if (opcionIngresada.equals("6")) {
-            	modificarLibro();
-            } else if (opcionIngresada.equals("7")) {
-            	eliminarUsuario();
-            } else if (opcionIngresada.equals("8")) {
-            	eliminarLibro();
-            } else if (opcionIngresada.equals("9")) {
-            	prestarLibro();
-            } else if (opcionIngresada.equals("10")) {
-            	devolverLibro();
-            } else if (opcionIngresada.equals("11")) {
-            	break;
-            }
-        }
-        
+    	// Creando el Marco        
+        JFrame frame = new JFrame("Chat Frame");       
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
+        frame.setSize(600, 400);        
 
-        System.out.println("Programa finalizado.");
+        // Creando MenuBar y agregando componentes   
+        JMenuBar mb = new JMenuBar();       
+        JMenu m1 = new JMenu("ARCHIVO");       
+        JMenu m2 = new JMenu("Ayuda");       
+        mb.add(m1);       
+        mb.add(m2);       
+        JMenuItem m11 = new JMenuItem("Abrir");       
+        JMenuItem m22 = new JMenuItem("Guardar como");       
+        m1.add(m11);       
+        m1.add(m22);        
+
+        // Creando el panel en la parte inferior y agregando componentes       
+        JPanel panel = new JPanel(); // el panel no está visible en la salida      
+        JLabel label = new JLabel("Introducir texto");       
+        JTextField tf = new JTextField(10); // acepta hasta 10 caracteres        
+        JButton send = new JButton("Enviar");       
+        JButton reset = new JButton("Restablecer");       
+       
+
+        // Área de texto en el centro    
+        JTextArea ta = new JTextArea();        
+
+        // Agregar componentes al marco.      
+        frame.getContentPane().add(BorderLayout.SOUTH, panel);       
+        frame.getContentPane().add(BorderLayout.NORTH, mb);       
+        frame.getContentPane().add(BorderLayout.CENTER, ta);       
+        frame.setVisible(true); 
     }
 
 
-    
-    
-    
-    public static void mostrarUsuarios() {
-    	for (Estudiante estudiante: estudiantes) {
-    		System.out.println(estudiante.orderedData());
-    		System.out.println("\n");
-        }
-    	
-    	for (Docente docente: docentes) {
-    		System.out.println(docente.orderedData());
-    		System.out.println("\n");
-        }
+
+
+
+
+
+
+
+
+    public static boolean existeCliente(String cedula) {
+    	return null != clientes.stream().filter(clienteEnLista -> clienteEnLista.getCedula().equals(cedula)).findAny().orElse(null);
     }
     
-    public static void mostrarLibros() {
-    	for (Libro libro: libros) {
-    		System.out.println(libro.orderedData());
-    		System.out.println("\n");
-        }
+    public static boolean existeVehiculo(String patente) {
+    	return null != vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patente)).findAny().orElse(null);
     }
-    
-    
-    
-    
-    
-    
-    
-
-    public static void registrarUsuario() {
-    	Scanner scanner = new Scanner(System.in);
-
-    	System.out.println("Ingresa el run: ");
-        String run = scanner.nextLine().toUpperCase();
-        if (existeUsuario(run)) {
-        	System.out.println("El run ya esta registrado en otro usuario.");
-        	return;
-        }
-
-        System.out.println("Ingresa el nombre completo: ");
-        String nombreCompleto = scanner.nextLine();
-        System.out.println("Ingresa el genero: ");
-        String genero = scanner.nextLine().toUpperCase();
-        
-        
-        String opcion;
-        while (true) {
-        	System.out.println("El usuario es un estudiante(1) o un docente (2)?:");
-            opcion = scanner.nextLine();
-            if (opcion.equals("1") || opcion.equals("2")) {
-            	break;
-            }
-        }
-        
-        if (opcion.equals("1")) {
-        	System.out.println("Ingresa la carrera del estudiante: ");
-            String carrera = scanner.nextLine();
-            Estudiante estudiante = new Estudiante(run, nombreCompleto, genero, "0", carrera);
-            estudiantes.add(estudiante);
-            
-        	
-        } else if (opcion.equals("2")) {
-        	System.out.println("Ingresa el grado del docente: ");
-            String grado = scanner.nextLine();
-            Docente docente = new Docente(run, nombreCompleto, genero, "0", grado);
-            docentes.add(docente);
-        }
-        
-        
-        guardarUsuariosEnFichero();
-        System.out.println("\nUsuario registrado!!");
+   
+    public static boolean existeArriendo(int numArriendo) {
+    	return null != arriendos.stream().filter(arriendoEnLista -> arriendoEnLista.getNumArriendo() == numArriendo).findAny().orElse(null);
     }
 
-    public static void registrarLibro() {
-    	Scanner scanner = new Scanner(System.in);
-
-    	System.out.println("Ingresa el ISBN: ");
-        String ISBN = scanner.nextLine().toUpperCase();
-        if (existeLibro(ISBN)) {
-        	System.out.println("El IBN ya esta registrado en otro libro.");
-        	
-        	return;
-        }
-        
-        System.out.println("Ingresa el titulo:");
-        String titulo = scanner.nextLine();
-        System.out.println("Ingresa el autor:");
-        String autor = scanner.nextLine();
-        
-        int cantidadEnBiblioteca;
-        while (true) {
-        	System.out.println("Ingresa la cantidad disponible en biblioteca:");
-        	String cantidadEnBibliotecaString = scanner.nextLine();
-        	try {
-                cantidadEnBiblioteca = Integer.parseInt(cantidadEnBibliotecaString);
-                if (cantidadEnBiblioteca < 1) {
-                	System.out.println("Ingresaste un numero negativo o cero.");
-                } else if (cantidadEnBiblioteca >= 1) {
-                	break;	
-                }
-        	} catch (Exception ex) {
-        		System.out.println("Ingresaste algo que no es un numero");
-        	}	
-        }
-        
-
-        Libro libro = new Libro(ISBN, titulo, autor, cantidadEnBiblioteca, cantidadEnBiblioteca);
-        libros.add(libro);
-        guardarLibrosEnFichero();
-        System.out.println("Libro registrado.");
-    }
-    
-    
-    
-    
-    
-    public static void modificarUsuario() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Ingresa el Run del usuario que quieres modificar: ");
-        String run = scanner.nextLine();
-        if (!existeUsuario(run)) {
-        	System.out.println("El run ingresado no esta registrado");
-        	
-        	return;
-        }
-        
-        Estudiante estudiante = buscarEstudiante(run);
-        Docente docente = buscarDocente(run);
-
-        if (estudiante != null) {
-        	String opcionIngresada;
-        	while (true) {
-        		System.out.println("Ingresa el atributo que quieres modificar:" + "\n"
-            			+ "1: Nombre completo" + "\n"
-            			+ "2: Genero" + "\n"
-            			+ "3: Carrera" + "\n"
-    					+ "Que atributo quieres modificar?"
-            	);
-        		opcionIngresada = scanner.nextLine();
-        		if (opcionIngresada.equals("1") || opcionIngresada.equals("2") || opcionIngresada.equals("3")) {
-        			break;
-        		}
-        	}
-    		System.out.println("Ingresa el nuevo valor del atributo seleccionado:");
-    		String nuevoValor = scanner.nextLine();
-    		if (opcionIngresada.equals("1")) {
-    			estudiante.setNombreCompleto(nuevoValor);
-    		} else if (opcionIngresada.equals("2")) {
-    			estudiante.setGenero(nuevoValor);
-    		} else if (opcionIngresada.equals("3")) {
-    			estudiante.setCarrera(nuevoValor);
-    		}
-        } else if (docente != null) {
-        	String opcionIngresada;
-        	while (true) {
-        		System.out.println("Ingresa el atributo que quieres modificar:" + "\n"
-            			+ "1: Nombre completo" + "\n"
-            			+ "2: Genero" + "\n"
-            			+ "3: Grado" + "\n"
-    					+ "Que atributo quieres modificar?"
-            	);
-        		opcionIngresada = scanner.nextLine();
-        		if (opcionIngresada.equals("1") || opcionIngresada.equals("2") || opcionIngresada.equals("3")) {
-        			break;
-        		}
-        	}
-        	System.out.println("Ingresa el nuevo valor del atributo seleccionado:");
-        	System.out.println(opcionIngresada);
-    		String nuevoValor = scanner.nextLine();
-    		if (opcionIngresada.equals("1")) {
-    			docente.setNombreCompleto(nuevoValor);
-    		} else if (opcionIngresada.equals("2")) {
-    			docente.setGenero(nuevoValor);
-    		} else if (opcionIngresada.equals("3")) {
-    			docente.setGrado(nuevoValor);
-    		} 
-        }
-        
-        guardarUsuariosEnFichero();
-        System.out.println("Usuario modificado.");
-    }
-    
-    public static void modificarLibro() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Ingresa el ISBN del libro que quieres modificar: ");
-        String ISBN = scanner.nextLine();
-        if (!existeLibro(ISBN)) {
-        	System.out.println("El ISBN ingresado no esta registrado");
-        	
-        	return;
-        }
-        
-        Libro libro = buscarLibro(ISBN);
-    	
-    	String opcionIngresada;
-    	while (true) {
-    		System.out.println("Ingresa el atributo que quieres modificar:" + "\n"
-        			+ "1: Titulo" + "\n"
-        			+ "2: Autor" + "\n"
-        			+ "3: Cantidad disponible en biblioteca"
-        	);
-    		opcionIngresada = scanner.nextLine();
-    		if (opcionIngresada.equals("1") || opcionIngresada.equals("2") || opcionIngresada.equals("3")) {
-    			break;
-    		}
-    	}
-
-    	System.out.println("Ingresa el nuevo valor del atributo seleccionado:");
-		String nuevoValor = scanner.nextLine();
-		if (opcionIngresada.equals("1")) {
-			libro.setTitulo(nuevoValor);
-		} else if (opcionIngresada.equals("2")) {
-			libro.setAutor(nuevoValor);
-		} else if (opcionIngresada.equals("3")) {
-	        while (true) {
-	        	try {
-	                int cantidadEnBiblioteca = Integer.parseInt(nuevoValor);
-	                libro.setCantidadEnBiblioteca(cantidadEnBiblioteca);
-	                break;
-	        	} catch (Exception ex) {
-	        		System.out.println("Ingresaste algo que no es un numero");
-	        		System.out.println("Ingresa el nuevo valor del atributo seleccionado:");
-	        		nuevoValor = scanner.nextLine();
-	        	}
-	        }
-		}
-        
-        guardarLibrosEnFichero();
-        System.out.println("\nLibro modificado!!");
-    }
-    
-    
-    
-    public static void eliminarUsuario() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Ingresa el Run del usuario a eliminar: ");
-    	String run = scanner.nextLine();
-    	if (!existeUsuario(run)) {
-    		System.out.println("El run no esta registrado");
-    		
-    		return;
-    	}
-
-    	estudiantes.removeIf(estudianteEnMemoria -> estudianteEnMemoria.getRun().equals(run));
-    	docentes.removeIf(docenteEnMemoria -> docenteEnMemoria.getRun().equals(run));    		
-
-    	
-    	guardarUsuariosEnFichero();
-    	System.out.println("Usuario eliminado");
-    }
-    
-    public static void eliminarLibro() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Ingresa el ISBN del libro a eliminar: ");
-    	String ISBN = scanner.nextLine();
-    	if (!existeLibro(ISBN)) {
-    		System.out.println("El ISBN no esta registrado");
-    		
-    		return;
-    	}
-
-    	libros.removeIf(libroEnMemoria -> libroEnMemoria.getISBN().equals(ISBN));
-
-    	
-    	guardarLibrosEnFichero();
-    	System.out.println("Libro eliminado");
-    }
-    
-    
-    
-    
-    
-    
-    public static void prestarLibro() {
-    	Scanner scanner = new Scanner(System.in);
-    	
-    	System.out.println("Ingresa el ISBN del libro a prestar: ");
-    	String ISBN = scanner.nextLine();
-    	if (!existeLibro(ISBN)) {
-    		System.out.println("El ISBN no esta registrado");
-    		
-    		return;
-    	}
-
-    	Libro libro = buscarLibro(ISBN);
-    	
-    	if (libro.getCantidadDisponiblePrestamo() == 0) {
-    		System.out.println("No quedan libros para prestar");
-    		
-    		return;
-    	}
-    	
-    	
-    	
-    	System.out.println("Ingresa el Run del usuario que recibira el libro: ");
-    	String run = scanner.nextLine();
-    	if (!existeUsuario(run)) {
-    		System.out.println("El run no esta registrado");
-    		
-    		return;
-    	}
-    	
-    	
-    	libro.setCantidadDisponiblePrestamo(libro.getCantidadDisponiblePrestamo() - 1);
-    	
-    	Estudiante estudiante = buscarEstudiante(run);
-    	Docente docente = buscarDocente(run);
-    	
-    	
-    	
-    	if (estudiante != null) {
-    		if (!estudiante.getPrestamo().equals("0")) {
-    			System.out.println("El usuario ingresado ya tiene un lubro prestado sin devolver");
-    			return;
-    		}
-    		estudiante.setPrestamo(ISBN);
-    	} else if (docente != null) {
-    		if (!docente.getPrestamo().equals("0")) {
-    			System.out.println("El usuario ingresado ya tiene un lubro prestado sin devolver");
-    			return;
-    		}
-    		docente.setPrestamo(ISBN);
-    	}
-
-    	
-    	guardarInformacionEnFicheros();
-    	System.out.println("Libro prestado.");
-    }
-
-    public static void devolverLibro() {
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Ingresa el Run del usuario que quiere devolver un libro: ");
-    	String run = scanner.nextLine();
-    	if (!existeUsuario(run)) {
-    		System.out.println("El run no esta registrado");
-    		return;
-    	}
-    	
-    	
-    	
-    	Estudiante estudiante = buscarEstudiante(run);
-    	Docente docente = buscarDocente(run);
-    	
-
-    	Libro libro;
-    	if (estudiante != null) {
-    		libro = buscarLibro(estudiante.getPrestamo());
-    		estudiante.setPrestamo("0");
-    	} else {
-    		libro = buscarLibro(docente.getPrestamo());
-    		docente.setPrestamo("0");
-    	}
-
-    	libro.setCantidadDisponiblePrestamo(libro.getCantidadDisponiblePrestamo() + 1);
-    	guardarInformacionEnFicheros();
-    	System.out.println("Libro devuelto");
-    }
-    
-
-    
-    
-    
-    
-    
-    public static boolean existeUsuario(String run) {
-    	Estudiante estudiante = estudiantes.stream().filter(estudianteEnLista -> estudianteEnLista.getRun().equals(run)).findAny().orElse(null);
-    	Docente docente = docentes.stream().filter(docenteEnLista -> docenteEnLista.getRun().equals(run)).findAny().orElse(null);
-    	return estudiante != null || docente != null;
-    }
-    
-    public static boolean existeLibro(String ISBN) {
-    	Libro libro = libros.stream().filter(libroEnLista -> libroEnLista.getISBN().equals(ISBN)).findAny().orElse(null);
-    	return libro != null;  
+    public static boolean existeArriendoConCuotas(int numArriendo) {
+    	return null != arriendosConCuotas.stream().filter(arriendoConCuotasEnLista -> arriendoConCuotasEnLista.getNumArriendo() == numArriendo).findAny().orElse(null);
     }
 
 
-    
-    
-    
-    
-    
-    public static Estudiante buscarEstudiante(String run) {
-    	return estudiantes.stream().filter(estudianteEnLista -> estudianteEnLista.getRun().equals(run)).findAny().orElse(null);
-    }
-    
-    public static Docente buscarDocente(String run) {
-    	return docentes.stream().filter(docenteEnLista -> docenteEnLista.getRun().equals(run)).findAny().orElse(null);
+
+    public static Cliente buscarCliente(String cedula) {
+    	return clientes.stream().filter(clienteEnLista -> clienteEnLista.getCedula().equals(cedula)).findAny().orElse(null);
     }
 
-    public static Libro buscarLibro(String ISBN) {
-    	return libros.stream().filter(libroEnLista -> libroEnLista.getISBN().equals(ISBN)).findAny().orElse(null);  
+    public static Vehiculo buscarVehiculo(String patente) {
+    	return vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patente)).findAny().orElse(null);  
     }
-    
+
+    public static Arriendo buscarArriendo(int numArriendo) {
+    	return  arriendos.stream().filter(arriendoEnLista -> arriendoEnLista.getNumArriendo() == numArriendo).findAny().orElse(null);  
+    }
+
+    public static ArriendoConCuotas buscarArriendoConCuotas(int numArriendo) {
+    	return arriendosConCuotas.stream().filter(arriendoConCuotasEnLista -> arriendoConCuotasEnLista.getNumArriendo() == numArriendo).findAny().orElse(null);
+    }
+
+
+
+
+
     
     
     
@@ -481,101 +125,160 @@ public class Main {
 
     
     
-    public static void cargarUsuariosEnMemoria() {
+    public static void cargarClientesEnMemoria() {
     	Scanner scanner = null;
-    	File fileUsuarios = new File("src/ficheros/usuarios.txt");
+    	File file = new File("ficheros/clientes.txt");
     	try {
-    		scanner = new Scanner(fileUsuarios);
+    		scanner = new Scanner(file);
     		while (scanner.hasNextLine()) {
-
+    			
     			 String rawData = scanner.nextLine();
     			 String[] arrayData = rawData.split(";");
 
-    			 String run = arrayData[0];
-    			 String nombreCompleto = arrayData[1];
-    			 String genero = arrayData[2];
-    			 String prestamo = arrayData[3];
-    			 String estudianteDocente = arrayData[4];
-    			 String carreraGrado = arrayData[5];
+    			 String cedula = arrayData[0];
+    			 String nombre = arrayData[1];
+    			 boolean vigente = Boolean.parseBoolean(arrayData[2]);
 
-    			 if (estudianteDocente.equals("estudiante")) {
-    				 Estudiante estudiante = new Estudiante(run, nombreCompleto, genero, prestamo, carreraGrado);
-    				 estudiantes.add(estudiante);
-    			 } else if (estudianteDocente.equals("docente")) {
-    				 Docente docente = new Docente(run, nombreCompleto, genero, prestamo, carreraGrado);
-    				 docentes.add(docente);
+    			 Cliente cliente = new Cliente(cedula, nombre, vigente);
+    			 clientes.add(cliente);
+    		 }
+    	} catch (Exception ex) {
+    		System.out.println("Error al leer el archivo de clientes");
+    	} finally {}
+    }
+
+    public static void cargarVehiculosEnMemoria() {
+    	Scanner scanner = null;
+    	File file = new File("ficheros/vehiculos.txt");
+    	try {
+    		scanner = new Scanner(file);
+    		while (scanner.hasNextLine()) {
+    			
+    			 String rawData = scanner.nextLine();
+    			 String[] arrayData = rawData.split(";");
+
+    			 String patente = arrayData[0];
+    			 char condicion = arrayData[1].charAt(0);
+
+    			 Vehiculo vehiculo = new Vehiculo(patente, condicion);
+    			 vehiculos.add(vehiculo);
+    		 }
+    	} catch (Exception ex) {
+    		System.out.println("Error al leer el archivo de vehiculos");
+    	} finally {}
+    }
+
+    public static void cargarArriendosEnMemoria() {
+    	Scanner scanner = null;
+    	File file = new File("ficheros/arriendos.txt");
+    	try {
+    		scanner = new Scanner(file);
+    		while (scanner.hasNextLine()) {
+    			
+    			 String rawData = scanner.nextLine();
+    			 String[] arrayData = rawData.split(";");
+
+    			 int numArriendo = Integer.parseInt(arrayData[0]);
+    			 String fecArr = arrayData[1];
+    			 int diasArriendo = Integer.parseInt(arrayData[2]);
+
+    			 Arriendo arriendo = new Arriendo(numArriendo, fecArr, diasArriendo);
+    			 arriendos.add(arriendo);
+    		 }
+    	} catch (Exception ex) {
+    		System.out.println("Error al leer el archivo de arriendos");
+    	} finally {}
+    }
+
+    public static void cargarArriendosConCuotasEnMemoria() {
+    	Scanner scanner = null;
+    	File file = new File("ficheros/arriendosConCuotas.txt");
+    	try {
+    		scanner = new Scanner(file);
+    		while (scanner.hasNextLine()) {
+    			
+    			 String rawData = scanner.nextLine();
+    			 String[] arrayData = rawData.split(";");
+
+    			 int numArriendo = Integer.parseInt(arrayData[0]);
+    			 String fecArr = arrayData[1];
+    			 int diasArriendo = Integer.parseInt(arrayData[2]);
+    			 int cantCuotas = Integer.parseInt(arrayData[3]);
+
+    			 ArriendoConCuotas arriendoConCuotas = new ArriendoConCuotas(numArriendo, fecArr, diasArriendo, cantCuotas);
+    			 for (int i=4 ; i < arrayData.length ; i++) {
+    				 String cuotaRawData = scanner.nextLine();
+        			 String[] cuotaArrayData = rawData.split("-");
+        			 
+        			 int numCuota = Integer.parseInt(cuotaArrayData[0]);
+        			 int valorCuota = Integer.parseInt(cuotaArrayData[1]);
+        			 boolean pagada = Boolean.parseBoolean(arrayData[2]);
+
+    				 Cuota cuota = new Cuota(numCuota, valorCuota, pagada);
+    				 arriendoConCuotas.addCuota(cuota);
     			 }
-
+    			 
+    			 
+    			 arriendosConCuotas.add(arriendoConCuotas);
     		 }
     	} catch (Exception ex) {
-    		System.out.println("Error al abrir el archivo de usuarios");
-    	} finally {
-    		
-    	}
+    		System.out.println("Error al leer el archivo de arriendos con cuotas");
+    	} finally {}
     }
 
-    public static void cargarLibrosEnMemoria() {
-    	Scanner scanner = null;
-    	File fileLibros = new File("src/ficheros/libros.txt");
+
+
+
+
+
+
+
+    public static void guardarClientesEnFichero() {
     	try {
-    		scanner = new Scanner(fileLibros);
-    		while (scanner.hasNextLine()) {
-
-    			 String rawData = scanner.nextLine();
-    			 String[] arrayData = rawData.split(";");
-
-    			 String ISBN = arrayData[0];
-    			 String titulo = arrayData[1];
-    			 String autor = arrayData[2];
-    			 int cantidadEnBiblioteca = Integer.parseInt(arrayData[3]);
-    			 int cantidadDisponiblePrestamo = Integer.parseInt(arrayData[4]);
-
-				 Libro libro = new Libro(ISBN, titulo, autor, cantidadEnBiblioteca, cantidadDisponiblePrestamo);
-				 libros.add(libro);
-    		 }
-    	} catch (Exception ex) {
-    		System.out.println("Error al abrir el archivo de libros");
-    	} finally {
-    		
-    	}
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public static void guardarUsuariosEnFichero() {
-    	try {
-        	BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/ficheros/usuarios.txt"));
-            for (Estudiante estudiante: estudiantes) {
-            	bufferedWriter.write(estudiante.rawData() + "\n");
+        	BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("ficheros/clientes.txt"));
+            for (Cliente cliente: clientes) {
+            	bufferedWriter.write(cliente.toString() + "\n");
             }
-            for (Docente docente: docentes) {
-            	bufferedWriter.write(docente.rawData() + "\n");
-            }
-            
             bufferedWriter.close();
     	} catch (IOException e) {}
     }
 
-    public static void guardarLibrosEnFichero() {
+    public static void guardarVehiculosEnFichero() {
     	try {
-    		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/ficheros/libros.txt"));
-    		for (Libro libro: libros) {
-    			bufferedWriter.write(libro.rawData() + "\n");
+    		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("ficheros/vehiculos.txt"));
+    		for (Vehiculo vehiculo: vehiculos) {
+    			bufferedWriter.write(vehiculo.toString() + "\n");
     		}
-
     		bufferedWriter.close();
     	} catch (IOException e) {}
     }
 
+    public static void guardarArriendosEnFichero() {
+    	try {
+    		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("ficheros/arriendos.txt"));
+    		for (Arriendo arriendo: arriendos) {
+    			bufferedWriter.write(arriendo.toString() + "\n");
+    		}
+    		bufferedWriter.close();
+    	} catch (IOException e) {}
+    }
+
+    public static void guardarArriendosConCuotasEnFichero() {
+    	try {
+    		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("ficheros/arriendosConCuotas.txt"));
+    		for (ArriendoConCuotas arriendoConCuotas: arriendosConCuotas) {
+    			bufferedWriter.write(arriendoConCuotas.toString() + "\n");
+    		}
+    		bufferedWriter.close();
+    	} catch (IOException e) {}
+    }
+
+
     public static void guardarInformacionEnFicheros() {
-    	guardarUsuariosEnFichero();
-    	guardarLibrosEnFichero();
+    	guardarClientesEnFichero();
+    	guardarVehiculosEnFichero();
+    	guardarArriendosEnFichero();
+    	guardarArriendosConCuotasEnFichero();
     }
     
     
