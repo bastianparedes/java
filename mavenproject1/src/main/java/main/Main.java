@@ -1,3 +1,4 @@
+package main;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,6 +19,8 @@ import interfaces.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 
+
+
 public class Main {
 
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -25,6 +28,8 @@ public class Main {
     public static ArrayList<Arriendo> arriendos = new ArrayList<Arriendo>();
     public static ArrayList<ArriendoConCuotas> arriendosConCuotas = new ArrayList<ArriendoConCuotas>();
     public static String ubicacionFicheros = "src/main/java/ficheros/";
+    
+    
 
         
 
@@ -35,13 +40,17 @@ public class Main {
     	cargarArriendosEnMemoria();
     	cargarArriendosConCuotasEnMemoria();
     	//vehiculos.removeIf(vehiculoEnMemoria -> vehiculoEnMemoria.getPatente().equals(patente));
-        MainFrame frame = new MainFrame();
+        MainFrame frame = new MainFrame(clientes, vehiculos, arriendos, arriendosConCuotas);
         frame.setVisible(true);
-        
+        mostrarClientes();
     }
 
 
-
+    public static void mostrarClientes() {
+        for (Cliente cliente: clientes) {
+            System.out.println(cliente.toString());
+        }
+    }
 
 
 
@@ -249,6 +258,18 @@ public class Main {
     	guardarArriendosEnFichero();
     	guardarArriendosConCuotasEnFichero();
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
