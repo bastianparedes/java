@@ -1,4 +1,0 @@
-19384801-0;Alexis;F;1234;estudiante;ingenieria
-19111648-8;Bastian Paredes;M;1235;docente;magister
-18308917-K;David Perez;M;1235;docente;doctor
-38493845-K;Cesar Miralles;M;0;docente;master
