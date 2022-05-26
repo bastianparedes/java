@@ -5,13 +5,11 @@ import clases.ArriendoConCuotas;
 import clases.Cliente;
 import clases.Cuota;
 import clases.Vehiculo;
+import controladores.ArriendosConCuotas;
+import controladores.Clientes;
+import controladores.Vehiculos;
 import java.util.ArrayList;
 import javax.swing.JLabel;
-import static main.Main.clientes;
-import static main.Main.vehiculos;
-import static main.Main.arriendos;
-import static main.Main.arriendosConCuotas;
-import static main.Main.ubicacionFicheros;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -20,7 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         //this.setJComboBox1Model();
         //this.setJComboBox2Model();
-        System.out.println(ubicacionFicheros);
+        System.out.println("");
     }
 
 
@@ -239,7 +237,7 @@ public class MainFrame extends javax.swing.JFrame {
         
 
         
-        int numArriendo = arriendosConCuotas.size() + 1;
+        int numArriendo = arriendosConCuotas.arrayList.size() + 1;
         String fecArr = jTextField1.getText();
         int diasArriendo = Integer.parseInt("0" + jTextField2.getText());
         int precioDia = Integer.parseInt("0" + jTextField3.getText());
@@ -248,10 +246,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel9.setText(diasArriendo * precioDia + "");
         
         String cedula = jComboBox1.getSelectedItem().toString();
-        Cliente cliente = clientes.stream().filter(clienteEnLista -> clienteEnLista.getCedula().equals(cedula)).findAny().orElse(null);
+        Cliente cliente = clientes.arrayList.stream().filter(clienteEnLista -> clienteEnLista.getCedula().equals(cedula)).findAny().orElse(null);
         
         String patente = jComboBox2.getSelectedItem().toString();
-        Vehiculo vehiculo = vehiculos.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patente)).findAny().orElse(null);
+        Vehiculo vehiculo = vehiculos.arrayList.stream().filter(vehiculoEnLista -> vehiculoEnLista.getPatente().equals(patente)).findAny().orElse(null);
 
         ArriendoConCuotas arriendoConCuotas = new ArriendoConCuotas(numArriendo, fecArr, diasArriendo, cantCuotas);
         arriendoConCuotas.setCliente(cliente);
@@ -265,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
             jTextArea1.setText(cuotasInfo);
 
-            arriendosConCuotas.add(arriendoConCuotas);
+            arriendosConCuotas.arrayList.add(arriendoConCuotas);
         }
         
         else {
@@ -347,32 +345,23 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-    private ArrayList<Cliente> clientes;
-    private ArrayList<Vehiculo> vehiculos;
-    private ArrayList<Arriendo> arriendos;
-    private ArrayList<ArriendoConCuotas> arriendosConCuotas;
-    private String ubicacionFicheros = "src/main/java/ficheros/";
-    public Object guardarFicheros;
+    private Clientes clientes;
+    private Vehiculos vehiculos;
+    private ArriendosConCuotas arriendosConCuotas;
 
-    public void setClientes(ArrayList<Cliente> clientes) {
+    public void setClientes(Clientes clientes) {
         this.clientes = clientes;
     }
     
-    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+    public void setVehiculos(Vehiculos vehiculos) {
         this.vehiculos = vehiculos;
     }
     
-    public void setArriendos(ArrayList<Arriendo> arriendos) {
-        this.arriendos = arriendos;
-    }
     
-    public void setArriendosConCuotas(ArrayList<ArriendoConCuotas> arriendosConCuotas) {
+    public void setArriendosConCuotas(ArriendosConCuotas arriendosConCuotas) {
         this.arriendosConCuotas = arriendosConCuotas;
     }
     
-    public void setGuardarFicheros(Object guardarFicheros) {
-        this.guardarFicheros = guardarFicheros;
-    }
     
 
 
@@ -392,7 +381,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setJComboBox1Model(){
         ArrayList<String> options = new ArrayList<String>();
         options.add("Seleccione CLIENTE");
-        for (Cliente cliente: clientes) {
+        for (Cliente cliente: clientes.arrayList) {
             options.add(cliente.getCedula());
         }
         String[] array = options.toArray(new String[0]);
@@ -403,7 +392,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setJComboBox2Model(){
         ArrayList<String> options = new ArrayList<String>();
         options.add("Seleccione AUTOMOVIL");
-        for (Vehiculo vehiculo: vehiculos) {
+        for (Vehiculo vehiculo: vehiculos.arrayList) {
             options.add(vehiculo.getPatente());
         }
         String[] array = options.toArray(new String[0]);
