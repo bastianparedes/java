@@ -35,22 +35,17 @@ public class Main {
 
 	
     public static void main(String[] args) {
+        
     	cargarClientesEnMemoria();
     	cargarVehiculosEnMemoria();
     	cargarArriendosEnMemoria();
     	cargarArriendosConCuotasEnMemoria();
     	//vehiculos.removeIf(vehiculoEnMemoria -> vehiculoEnMemoria.getPatente().equals(patente));
-        MainFrame frame = new MainFrame(clientes, vehiculos, arriendos, arriendosConCuotas);
+        ubicacionFicheros += "vdf";
+        MainFrame frame = new MainFrame();
         frame.setVisible(true);
-        mostrarClientes();
     }
 
-
-    public static void mostrarClientes() {
-        for (Cliente cliente: clientes) {
-            System.out.println(cliente.toString());
-        }
-    }
 
 
 

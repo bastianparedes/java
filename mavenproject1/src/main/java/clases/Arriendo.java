@@ -4,74 +4,83 @@ package clases;
 
 public class Arriendo {
 
-	private int numArriendo;
-	private String fecArr;
-	private int diasArriendo;
-	private Cliente cliente;
-	private Vehiculo vehiculo;
-	
-	public Arriendo(int numArriendo, String fecArr, int diasArriendo) {
-            setNumArriendo(numArriendo);
-            setFecArr(fecArr);
-            setDiasArriendo(diasArriendo);
-	}
+    private String id;
+    private int numArriendo;
+    private String fecArr;
+    private int diasArriendo;
+    private Cliente cliente;
+    private Vehiculo vehiculo;
+
+    public Arriendo(int numArriendo, String fecArr, int diasArriendo) {
+        setId(numArriendo + "");
+        setNumArriendo(numArriendo);
+        setFecArr(fecArr);
+        setDiasArriendo(diasArriendo);
+    }
 
 
+    public String getId() {
+        return id;
+    }
 
-	public int getNumArriendo() {
-            return numArriendo;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setNumArriendo(int numArriendo) {
-            this.numArriendo = numArriendo;
-	}
+    public int getNumArriendo() {
+        return numArriendo;
+    }
 
-	public String getFecArr() {
-            return fecArr;
-	}
+    public void setNumArriendo(int numArriendo) {
+        this.numArriendo = numArriendo;
+    }
 
-	public void setFecArr(String fecArr) {
-            this.fecArr = fecArr;
-	}
+    public String getFecArr() {
+        return fecArr;
+    }
 
-	public int getDiasArriendo() {
-            return diasArriendo;
-	}
+    public void setFecArr(String fecArr) {
+        this.fecArr = fecArr;
+    }
 
-	public void setDiasArriendo(int diasArriendo) {
-            this.diasArriendo = diasArriendo;
-	}
+    public int getDiasArriendo() {
+        return diasArriendo;
+    }
 
-	public Cliente getCliente() {
-            return cliente;
-        }
+    public void setDiasArriendo(int diasArriendo) {
+        this.diasArriendo = diasArriendo;
+    }
 
-	public void setCliente(Cliente cliente) {
-            this.cliente = cliente;
-	}
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-	public Vehiculo getVehiculo() {
-            return vehiculo;
-	}
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-	public void setVehiculo(Vehiculo vehiculo) {
-            this.vehiculo = vehiculo;
-	}
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 
 
-	public int obtenerMontoAPagar(int precioDia) {
-            return precioDia * getDiasArriendo();
-	}
-	
-	public boolean evaluarArriendo() {
-            return cliente.getVigente() && (vehiculo.getCondicion() == 'D');
-	}
+    public int obtenerMontoAPagar(int precioDia) {
+        return precioDia * getDiasArriendo();
+    }
 
-	
-	public String toString() {
-            return this.numArriendo + ';'
-                + this.fecArr + ';'
-                + this.diasArriendo;
-	}
-	
+    public boolean evaluarArriendo() {
+        return cliente.getVigente() && (vehiculo.getCondicion() == 'D');
+    }
+
+
+    public String toString() {
+        return this.numArriendo + ';'
+            + this.fecArr + ';'
+            + this.diasArriendo;
+    }
+
 }
