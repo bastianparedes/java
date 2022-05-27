@@ -115,6 +115,7 @@ public class AgregarCliente extends javax.swing.JFrame {
         String cedula = jTextPane1.getText();
         String nombre = jTextPane2.getText();
         boolean vigente = jCheckBox1.isSelected();
+        System.out.println(vigente);
         if (!clientes.existe(cedula) && !cedula.equals("")) {
             Cliente cliente = new Cliente(cedula, nombre, vigente);
             clientes.arrayList.add(cliente);
@@ -147,7 +148,7 @@ public class AgregarCliente extends javax.swing.JFrame {
     
     
     
-    private Clientes clientes = new Clientes();
+    private final Clientes clientes = new Clientes();
     
     
     

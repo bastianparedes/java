@@ -1,3 +1,0 @@
-19111648-8;Bastian;true
-18916805-5;Metrik;true
-18415803-2;Esteban;false

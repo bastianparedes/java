@@ -1,10 +1,10 @@
 
 package interfaces;
-import clases.ArriendoConCuotas;
+import clases.Arriendo;
 import clases.Cliente;
 import clases.Cuota;
 import clases.Vehiculo;
-import controladores.ArriendosConCuotas;
+import controladores.Arriendos;
 import controladores.Clientes;
 import controladores.Vehiculos;
 import java.util.ArrayList;
@@ -96,7 +96,7 @@ public class Arrendar extends javax.swing.JFrame {
             }
         });
 
-        jTextField3.setText("3000");
+        jTextField3.setText("0");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -164,7 +164,7 @@ public class Arrendar extends javax.swing.JFrame {
                     .addComponent(jTextField3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                     .addComponent(jTextField2)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
@@ -192,16 +192,13 @@ public class Arrendar extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(378, 378, 378))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(714, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
+                .addGap(275, 275, 275)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -214,9 +211,7 @@ public class Arrendar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addGap(20, 20, 20)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +243,9 @@ public class Arrendar extends javax.swing.JFrame {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addGap(27, 27, 27))
         );
 
@@ -261,14 +258,14 @@ public class Arrendar extends javax.swing.JFrame {
             return;
         }
 
-        int numArriendo = arriendosConCuotas.arrayList.size() + 1;
+        int numArriendo = arriendos.arrayList.size() + 1;
         String fecArr = jTextField1.getText();
         int diasArriendo = Integer.parseInt("0" + jTextField2.getText());
         int precioDia = Integer.parseInt("0" + jTextField3.getText());
         int cantCuotas = Integer.parseInt("0" + jTextField4.getText());
         
         if (cantCuotas == 0) {
-            jLabel9.setText("0 cuotas");
+            jLabel9.setText("Ingresaste 0 cuotas");
             return;
         }
         
@@ -288,23 +285,23 @@ public class Arrendar extends javax.swing.JFrame {
             return;
         }
 
-        ArriendoConCuotas arriendoConCuotas = new ArriendoConCuotas(numArriendo, fecArr, diasArriendo, cantCuotas);
-        arriendoConCuotas.setCliente(cliente);
-        arriendoConCuotas.setVehiculo(vehiculo);
+        Arriendo arriendo = new Arriendo(numArriendo, fecArr, diasArriendo, cantCuotas);
+        arriendo.setCliente(cliente);
+        arriendo.setVehiculo(vehiculo);
         
-        if (arriendoConCuotas.evaluarArriendo()) {
-            ArrayList<Cuota> cuotas = arriendoConCuotas.generarCuotas(precioDia);
+        if (arriendo.evaluarArriendo()) {
+            ArrayList<Cuota> cuotas = arriendo.generarCuotas(precioDia);
             String cuotasInfo = "";
             for (Cuota cuota: cuotas) {
                 cuotasInfo += cuota.getNumCuota() + "                  " + cuota.getValorCuota() + "                " + cuota.getPagada() + "\n";
             }
             jTextArea1.setText(cuotasInfo);
 
-            arriendoConCuotas.getVehiculo().setCondicion('A');
-            arriendosConCuotas.arrayList.add(arriendoConCuotas);
-            setArriendoConCuotasCargado(arriendoConCuotas);
+            arriendo.getVehiculo().setCondicion('A');
+            arriendos.arrayList.add(arriendo);
+            setArriendoCargado(arriendo);
             vehiculos.guardarEnFichero();
-            arriendosConCuotas.guardarEnFichero();
+            arriendos.guardarEnFichero();
             setJComboBox2Model();
         }
         else {
@@ -405,10 +402,10 @@ public class Arrendar extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-    private Clientes clientes = new Clientes();
-    private Vehiculos vehiculos = new Vehiculos();
-    private ArriendosConCuotas arriendosConCuotas = new ArriendosConCuotas();
-    private ArriendoConCuotas arriendoConCuotasCargado = null;    
+    private final Clientes clientes = new Clientes();
+    private final Vehiculos vehiculos = new Vehiculos();
+    private final Arriendos arriendos = new Arriendos();
+    private Arriendo arriendoCargado = null;    
 
     
     
@@ -418,8 +415,8 @@ public class Arrendar extends javax.swing.JFrame {
     
     
 
-    private void setArriendoConCuotasCargado(ArriendoConCuotas arriendoConCuotasCargado) {
-        this.arriendoConCuotasCargado = arriendoConCuotasCargado;
+    private void setArriendoCargado(Arriendo arriendoCargado) {
+        this.arriendoCargado = arriendoCargado;
     }
 
     public boolean isNumeric(String string) {
@@ -427,21 +424,20 @@ public class Arrendar extends javax.swing.JFrame {
             Integer.parseInt(string);
             return true;
         }
-        catch (Exception e) {
+        catch (NumberFormatException e) {
             return false;
         }
     }
 
     private void setJComboBox1Model(){
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione CLIENTE");
         for (Cliente cliente: clientes.arrayList) {
             if (cliente.getVigente()) {
                 options.add(cliente.getCedula());
             }
-            
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox1.setModel(model);
     }
@@ -455,7 +451,7 @@ public class Arrendar extends javax.swing.JFrame {
             }
             
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox2.setModel(model);
     }

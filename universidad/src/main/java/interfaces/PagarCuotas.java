@@ -1,11 +1,10 @@
 
 package interfaces;
 
-import clases.ArriendoConCuotas;
+import clases.Arriendo;
 import clases.Cliente;
 import clases.Cuota;
-import clases.Vehiculo;
-import controladores.ArriendosConCuotas;
+import controladores.Arriendos;
 import controladores.Clientes;
 import controladores.Vehiculos;
 import java.util.ArrayList;
@@ -114,14 +113,14 @@ public class PagarCuotas extends javax.swing.JFrame {
         Cliente cliente = clientes.buscar(cedula);
         
         
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione ARRIENDO");
-        for (ArriendoConCuotas arriendoConCuotas: arriendosConCuotas.arrayList) {
-            if (arriendoConCuotas.getCliente().getCedula().equals(cedula)) {
-                options.add(arriendoConCuotas.getNumArriendo() + "");
+        for (Arriendo arriendo: arriendos.arrayList) {
+            if (arriendo.getCliente().getCedula().equals(cedula)) {
+                options.add(arriendo.getNumArriendo() + "");
             }
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox2.setModel(model);
         
@@ -135,19 +134,19 @@ public class PagarCuotas extends javax.swing.JFrame {
         String numArriendo = jComboBox2.getSelectedItem().toString();
         String numCuota = jComboBox3.getSelectedItem().toString();
         
-        ArriendoConCuotas arriendoConCuotas = arriendosConCuotas.buscar(numArriendo);
-        arriendoConCuotas.pagarCuota(Integer.parseInt(numCuota));
-        arriendosConCuotas.guardarEnFichero();
+        Arriendo arriendo = arriendos.buscar(numArriendo);
+        arriendo.pagarCuota(Integer.parseInt(numCuota));
+        arriendos.guardarEnFichero();
 
 
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione CUOTA");
-        for (Cuota cuota: arriendoConCuotas.getCuotas()) {
+        for (Cuota cuota: arriendo.getCuotas()) {
             if (!cuota.getPagada()) {
                 options.add(cuota.getId());
             }
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox3.setModel(model);
         
@@ -170,17 +169,17 @@ public class PagarCuotas extends javax.swing.JFrame {
         }
 
         String numArriendo = evt.getItem().toString();
-        ArriendoConCuotas arriendoConCuotas = arriendosConCuotas.buscar(numArriendo);
+        Arriendo arriendo = arriendos.buscar(numArriendo);
         
         
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione CUOTA");
-        for (Cuota cuota: arriendoConCuotas.getCuotas()) {
+        for (Cuota cuota: arriendo.getCuotas()) {
             if (!cuota.getPagada()) {
                 options.add(cuota.getId());
             }
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox3.setModel(model);
     }//GEN-LAST:event_jComboBox2ItemStateChanged
@@ -196,18 +195,18 @@ public class PagarCuotas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private Clientes clientes = new Clientes();
     private Vehiculos vehiculos = new Vehiculos();
-    private ArriendosConCuotas arriendosConCuotas = new ArriendosConCuotas();
+    private Arriendos arriendos = new Arriendos();
 
     
     private void setJComboBox1Model(){
-        ArrayList<String> options = new ArrayList<String>();
+        ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione CLIENTE");
         for (Cliente cliente: clientes.arrayList) {
             if (cliente.getVigente()) {
                 options.add(cliente.getCedula());
             }
         }
-        String[] array = options.toArray(new String[0]);
+        String[] array = options.toArray(String[]::new);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
         jComboBox1.setModel(model);
     }

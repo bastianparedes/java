@@ -1,5 +1,0 @@
-1;26/05/2022;1;1;19111648-8;HDGZ41;1-3000-false
-2;26/05/2022;1;6;19111648-8;HDGZ44;1-500-false;2-500-false;3-500-true;4-500-false;5-500-false;6-500-false
-3;26/05/2022;1;56;19111648-8;HDGZ43;1-53-false;2-53-false;3-53-false;4-53-false;5-53-false;6-53-false;7-53-false;8-53-false;9-53-false;10-53-false;11-53-false;12-53-false;13-53-false;14-53-false;15-53-false;16-53-false;17-53-false;18-53-false;19-53-false;20-53-false;21-53-false;22-53-false;23-53-false;24-53-false;25-53-false;26-53-false;27-53-false;28-53-false;29-53-false;30-53-false;31-53-false;32-53-false;33-53-false;34-53-false;35-53-false;36-53-false;37-53-false;38-53-false;39-53-false;40-53-false;41-53-false;42-53-false;43-53-false;44-53-false;45-53-false;46-53-false;47-53-false;48-53-false;49-53-false;50-53-false;51-53-false;52-53-false;53-53-false;54-53-false;55-53-false;56-53-false
-4;26/05/2022;1;3;18916805-5;HDGZ42;1-1000-false;2-1000-false;3-1000-false
-5;26/05/2022;1;9;18916805-5;HDGZ45;1-333-false;2-333-false;3-333-false;4-333-false;5-333-false;6-333-false;7-333-false;8-333-false;9-333-false

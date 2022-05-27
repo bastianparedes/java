@@ -4,6 +4,7 @@ package controladores;
 import clases.Cliente;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class Clientes {
                 Cliente cliente = new Cliente(cedula, nombre, vigente);
                 arrayList.add(cliente);
             }
-    	} catch (Exception ex) {
+    	} catch (FileNotFoundException ex) {
             System.out.println("Error al leer el archivo de clientes");
     	} finally {}
     }
@@ -51,8 +52,9 @@ public class Clientes {
     public void guardarEnFichero() {
     	try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.fichero));
-            for (Object object: this.arrayList) {
-                bufferedWriter.write(object.toString() + "\n");
+            for (Cliente cliente: this.arrayList) {
+                System.out.println(cliente.toString());
+                bufferedWriter.write(cliente.toString() + "\n");
             }
             bufferedWriter.close();
     	} catch (IOException e) {}

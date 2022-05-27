@@ -1,7 +1,7 @@
 
 package clases;
 
-public class Vehiculo {
+public final class Vehiculo {
 
     private String id;
     private String patente;
@@ -36,6 +36,7 @@ public class Vehiculo {
 
 
 
+    @Override
     public String toString() {
         return this.patente + ";"
         + this.condicion;

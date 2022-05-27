@@ -1,21 +1,22 @@
 
 package controladores;
 
-import clases.ArriendoConCuotas;
+import clases.Arriendo;
 import clases.Cuota;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ArriendosConCuotas {
+public class Arriendos {
     
-    public String fichero = "src/main/java/ficheros/arriendosConCuotas.txt";
-    public ArrayList<ArriendoConCuotas> arrayList = new ArrayList<>();
+    public String fichero = "src/main/java/ficheros/arriendos.txt";
+    public ArrayList<Arriendo> arrayList = new ArrayList<>();
 
-    public ArriendosConCuotas() {
+    public Arriendos() {
         this.cargarEnMemoria();
     }
 
@@ -43,7 +44,7 @@ public class ArriendosConCuotas {
                 String cedula = arrayData[4];
                 String patente = arrayData[5];
 
-                ArriendoConCuotas arriendoConCuotas = new ArriendoConCuotas(numArriendo, fecArr, diasArriendo, cantCuotas);
+                Arriendo arriendoConCuotas = new Arriendo(numArriendo, fecArr, diasArriendo, cantCuotas);
                 arriendoConCuotas.setCliente(clientes.buscar(cedula));
                 arriendoConCuotas.setVehiculo(vehiculos.buscar(patente));
                 
@@ -63,7 +64,7 @@ public class ArriendosConCuotas {
 
                 arrayList.add(arriendoConCuotas);
             }
-    	} catch (Exception ex) {
+    	} catch (FileNotFoundException | NumberFormatException ex) {
             System.out.println("Error al leer el archivo de arriendos con cuotas");
     	} finally {}
     }
@@ -73,8 +74,8 @@ public class ArriendosConCuotas {
     public void guardarEnFichero() {
     	try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.fichero));
-            for (Object object: this.arrayList) {
-                bufferedWriter.write(object.toString() + "\n");
+            for (Arriendo arriendo: this.arrayList) {
+                bufferedWriter.write(arriendo.toString() + "\n");
             }
             bufferedWriter.close();
     	} catch (IOException e) {}
@@ -85,7 +86,7 @@ public class ArriendosConCuotas {
     	return null != this.arrayList.stream().filter(object -> object.getId().equals(id)).findAny().orElse(null);
     }
 
-    public ArriendoConCuotas buscar(String id) {
+    public Arriendo buscar(String id) {
     	return this.arrayList.stream().filter(object -> object.getId().equals(id)).findAny().orElse(null);
     }
 

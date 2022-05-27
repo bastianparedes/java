@@ -1,7 +1,7 @@
 
 package clases;
 
-public class Cliente {
+public final class Cliente {
 
     private String id;
     private String cedula;
@@ -50,6 +50,7 @@ public class Cliente {
 
 
 
+    @Override
     public String toString() {
         return this.cedula + ";"
             + this.nombre + ";"

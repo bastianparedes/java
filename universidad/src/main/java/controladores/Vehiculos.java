@@ -4,6 +4,7 @@ package controladores;
 import clases.Vehiculo;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Vehiculos {
                 Vehiculo vehiculo = new Vehiculo(patente, condicion);
                 arrayList.add(vehiculo);
             }
-    	} catch (Exception ex) {
+    	} catch (FileNotFoundException ex) {
             System.out.println("Error al leer el archivo de vehiculos");
     	} finally {}
     }
@@ -49,8 +50,8 @@ public class Vehiculos {
     public void guardarEnFichero() {
     	try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(this.fichero));
-            for (Object object: this.arrayList) {
-                bufferedWriter.write(object.toString() + "\n");
+            for (Vehiculo vehiculo: this.arrayList) {
+                bufferedWriter.write(vehiculo.toString() + "\n");
             }
             bufferedWriter.close();
     	} catch (IOException e) {}

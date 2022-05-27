@@ -1,7 +1,7 @@
 
 package clases;
 
-public class Cuota {
+public final class Cuota {
 	
     private String id;
     private int numCuota;
@@ -51,6 +51,7 @@ public class Cuota {
         return true;
     }
 
+    @Override
     public String toString() {
         return this.numCuota + "-"
             + this.valorCuota + "-"

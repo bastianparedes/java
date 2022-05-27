@@ -1,0 +1,5 @@
+27492847-3;Ana;false
+39823917-k;Nicolas;true
+78302738-3;Daniela;true
+92384534-1;Javier;true
+32452369-7;Cristian;true
