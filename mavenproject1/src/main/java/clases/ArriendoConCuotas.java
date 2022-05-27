@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ArriendoConCuotas extends Arriendo {
 	
-    private int cantCuotas;
+    private int cantCuotas = 0;
     private ArrayList<Cuota> cuotas = new ArrayList<Cuota>();
 
     public ArriendoConCuotas(int numArriendo, String fecArr, int diasArriendo, int cantCuotas) {
@@ -53,7 +53,7 @@ public class ArriendoConCuotas extends Arriendo {
     public boolean pagarCuota(int numCuota) {
         Cuota cuota = cuotas.stream().filter(cuotaEnLista -> cuotaEnLista.getNumCuota() == numCuota).findAny().orElse(null);
         if (cuota != null) {
-            cuota.pagarCuota();
+            cuota.setPagada(true);
             return true;
         }
         return false;
@@ -65,7 +65,9 @@ public class ArriendoConCuotas extends Arriendo {
 
     public String toString() {
         String string = super.toString() + ";"
-            + this.cantCuotas;
+            + this.cantCuotas + ";"
+            + this.cliente.getCedula() + ";"
+            + this.vehiculo.getPatente();
         for (Cuota cuota: cuotas) {
             string += ';' + cuota.toString();
         }

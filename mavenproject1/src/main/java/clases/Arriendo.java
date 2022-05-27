@@ -8,8 +8,8 @@ public class Arriendo {
     private int numArriendo;
     private String fecArr;
     private int diasArriendo;
-    private Cliente cliente;
-    private Vehiculo vehiculo;
+    Cliente cliente;
+    Vehiculo vehiculo;
 
     public Arriendo(int numArriendo, String fecArr, int diasArriendo) {
         setId(numArriendo + "");

@@ -63,7 +63,7 @@ public class Clientes {
     	return null != this.arrayList.stream().filter(object -> object.getId().equals(id)).findAny().orElse(null);
     }
 
-    public Object buscar(String id) {
+    public Cliente buscar(String id) {
     	return this.arrayList.stream().filter(object -> object.getId().equals(id)).findAny().orElse(null);
     }
 

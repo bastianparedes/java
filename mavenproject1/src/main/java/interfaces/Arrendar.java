@@ -132,7 +132,6 @@ public class Arrendar extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         jButton2.setText("Pagar cuotas");
-        jButton2.setActionCommand("Pagar cuotas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -201,10 +200,10 @@ public class Arrendar extends javax.swing.JFrame {
                         .addGap(190, 190, 190)
                         .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(369, 369, 369)
                 .addComponent(jButton2)
-                .addGap(94, 94, 94))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,9 +247,9 @@ public class Arrendar extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -268,10 +267,15 @@ public class Arrendar extends javax.swing.JFrame {
         int precioDia = Integer.parseInt("0" + jTextField3.getText());
         int cantCuotas = Integer.parseInt("0" + jTextField4.getText());
         
+        if (cantCuotas == 0) {
+            jLabel9.setText("0 cuotas");
+            return;
+        }
+        
         jLabel9.setText(diasArriendo * precioDia + "");
         
         String cedula = jComboBox1.getSelectedItem().toString();
-        Cliente cliente = clientes.arrayList.stream().filter(clienteEnLista -> clienteEnLista.getCedula().equals(cedula)).findAny().orElse(null);
+        Cliente cliente = clientes.buscar(cedula);
         if (!cliente.getVigente()) {
             jLabel9.setText("Cliente no vigente");
             return;
@@ -296,10 +300,12 @@ public class Arrendar extends javax.swing.JFrame {
             }
             jTextArea1.setText(cuotasInfo);
 
+            arriendoConCuotas.getVehiculo().setCondicion('A');
             arriendosConCuotas.arrayList.add(arriendoConCuotas);
             setArriendoConCuotasCargado(arriendoConCuotas);
+            vehiculos.guardarEnFichero();
             arriendosConCuotas.guardarEnFichero();
-            
+            setJComboBox2Model();
         }
         else {
             jLabel9.setText("Arriendo inválido");
@@ -363,11 +369,9 @@ public class Arrendar extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (arriendoConCuotasCargado != null) {
-            PagarCuotas framePagarCuotas = new PagarCuotas();
-            framePagarCuotas.setVisible(true);
-            this.dispose();
-        }
+        PagarCuotas framePagarCuotas = new PagarCuotas();
+        framePagarCuotas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -432,7 +436,10 @@ public class Arrendar extends javax.swing.JFrame {
         ArrayList<String> options = new ArrayList<String>();
         options.add("Seleccione CLIENTE");
         for (Cliente cliente: clientes.arrayList) {
-            options.add(cliente.getCedula());
+            if (cliente.getVigente()) {
+                options.add(cliente.getCedula());
+            }
+            
         }
         String[] array = options.toArray(new String[0]);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
@@ -443,7 +450,10 @@ public class Arrendar extends javax.swing.JFrame {
         ArrayList<String> options = new ArrayList<>();
         options.add("Seleccione AUTOMOVIL");
         for (Vehiculo vehiculo: vehiculos.arrayList) {
-            options.add(vehiculo.getPatente());
+            if (vehiculo.getCondicion() == 'D') {
+                options.add(vehiculo.getPatente());
+            }
+            
         }
         String[] array = options.toArray(new String[0]);
         javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>(array);
