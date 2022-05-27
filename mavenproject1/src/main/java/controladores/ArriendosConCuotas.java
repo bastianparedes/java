@@ -38,11 +38,10 @@ public class ArriendosConCuotas {
                 String fecArr = arrayData[1];
                 int diasArriendo = Integer.parseInt(arrayData[2]);
                 int cantCuotas = Integer.parseInt(arrayData[3]);
-
                 ArriendoConCuotas arriendoConCuotas = new ArriendoConCuotas(numArriendo, fecArr, diasArriendo, cantCuotas);
                 for (int i=4 ; i < arrayData.length ; i++) {
-                    String cuotaRawData = scanner.nextLine();
-                    String[] cuotaArrayData = rawData.split("-");
+                    String cuotaRawData = arrayData[i];
+                    String[] cuotaArrayData = cuotaRawData.split("-");
 
                     int numCuota = Integer.parseInt(cuotaArrayData[0]);
                     int valorCuota = Integer.parseInt(cuotaArrayData[1]);

@@ -14,10 +14,14 @@ import javax.swing.JLabel;
 public class MainFrame extends javax.swing.JFrame {
 
 
-    public MainFrame() {
+    public MainFrame(Clientes clientes, Vehiculos vehiculos, ArriendosConCuotas arriendosConCuotas) {
         initComponents();
-        //this.setJComboBox1Model();
-        //this.setJComboBox2Model();
+
+        this.setClientes(clientes);
+        this.setVehiculos(vehiculos);
+        this.setArriendosConCuotas(arriendosConCuotas);
+        this.setJComboBox1Model();
+        this.setJComboBox2Model();
         System.out.println("");
     }
 
@@ -236,7 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         
 
-        
+        System.out.println(arriendosConCuotas.arrayList);
         int numArriendo = arriendosConCuotas.arrayList.size() + 1;
         String fecArr = jTextField1.getText();
         int diasArriendo = Integer.parseInt("0" + jTextField2.getText());
@@ -264,8 +268,8 @@ public class MainFrame extends javax.swing.JFrame {
             jTextArea1.setText(cuotasInfo);
 
             arriendosConCuotas.arrayList.add(arriendoConCuotas);
+            arriendosConCuotas.guardarEnFichero();
         }
-        
         else {
             jLabel9.setText("Arriendo inválido");
         }
@@ -345,20 +349,36 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private Clientes clientes;
     private Vehiculos vehiculos;
     private ArriendosConCuotas arriendosConCuotas;
 
-    public void setClientes(Clientes clientes) {
+    private void setClientes(Clientes clientes) {
         this.clientes = clientes;
     }
     
-    public void setVehiculos(Vehiculos vehiculos) {
+    private void setVehiculos(Vehiculos vehiculos) {
         this.vehiculos = vehiculos;
     }
-    
-    
-    public void setArriendosConCuotas(ArriendosConCuotas arriendosConCuotas) {
+
+    private void setArriendosConCuotas(ArriendosConCuotas arriendosConCuotas) {
         this.arriendosConCuotas = arriendosConCuotas;
     }
     
@@ -378,7 +398,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    public void setJComboBox1Model(){
+    private void setJComboBox1Model(){
         ArrayList<String> options = new ArrayList<String>();
         options.add("Seleccione CLIENTE");
         for (Cliente cliente: clientes.arrayList) {
@@ -389,7 +409,7 @@ public class MainFrame extends javax.swing.JFrame {
         jComboBox1.setModel(model);
     }
 
-    public void setJComboBox2Model(){
+    private void setJComboBox2Model(){
         ArrayList<String> options = new ArrayList<String>();
         options.add("Seleccione AUTOMOVIL");
         for (Vehiculo vehiculo: vehiculos.arrayList) {

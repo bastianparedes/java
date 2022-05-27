@@ -43,12 +43,10 @@ public class ArriendoConCuotas extends Arriendo {
     }
 
     public ArrayList<Cuota> generarCuotas(int precioDia) {
-        ArrayList<Cuota> cuotas = new ArrayList<Cuota>();
         int valorCuota = super.obtenerMontoAPagar(precioDia) / this.cantCuotas;
         for (int numCuota=1 ; numCuota <= this.cantCuotas ; numCuota++) {
             cuotas.add(new Cuota(numCuota, valorCuota, false));
         }
-
         return cuotas; 
     }
 
@@ -66,7 +64,7 @@ public class ArriendoConCuotas extends Arriendo {
     }
 
     public String toString() {
-        String string = super.toString() + ';'
+        String string = super.toString() + ";"
             + this.cantCuotas;
         for (Cuota cuota: cuotas) {
             string += ';' + cuota.toString();

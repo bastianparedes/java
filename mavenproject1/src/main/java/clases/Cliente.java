@@ -51,8 +51,8 @@ public class Cliente {
 
 
     public String toString() {
-        return this.cedula + ';'
-            + this.nombre + ';'
+        return this.cedula + ";"
+            + this.nombre + ";"
             + this.vigente;
     }
 }

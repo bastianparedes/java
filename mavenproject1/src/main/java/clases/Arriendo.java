@@ -78,8 +78,8 @@ public class Arriendo {
 
 
     public String toString() {
-        return this.numArriendo + ';'
-            + this.fecArr + ';'
+        return this.numArriendo + ";"
+            + this.fecArr + ";"
             + this.diasArriendo;
     }
 

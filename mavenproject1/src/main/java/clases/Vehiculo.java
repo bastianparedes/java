@@ -37,7 +37,7 @@ public class Vehiculo {
 
 
     public String toString() {
-        return this.patente + ';'
+        return this.patente + ";"
         + this.condicion;
     }
 }

@@ -53,7 +53,7 @@ public class Cuota {
 
     public String toString() {
         return this.numCuota + "-"
-            + this.valorCuota + '-'
+            + this.valorCuota + "-"
             + this.pagada;
     }
 }
