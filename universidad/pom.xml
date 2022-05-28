@@ -10,5 +10,5 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.soynovato.mavenproject1.Mavenproject1</exec.mainClass>
     </properties>
-    <name>semana 10</name>
+    <name>Bastian Paredes</name>
 </project>
