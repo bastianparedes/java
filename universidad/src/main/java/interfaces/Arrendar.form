@@ -232,12 +232,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="26/05/2022"/>
-      </Properties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField2">
       <Properties>
@@ -250,7 +244,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="0"/>
+        <Property name="text" type="java.lang.String" value="10000"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>

@@ -145,9 +145,6 @@ public class AgregarCliente extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane2;
     // End of variables declaration//GEN-END:variables
-    
-    
-    
     private final Clientes clientes = new Clientes();
     
     

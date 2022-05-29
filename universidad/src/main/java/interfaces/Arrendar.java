@@ -77,13 +77,6 @@ public class Arrendar extends javax.swing.JFrame {
 
         jLabel8.setText("Numero      Valor              ¿Pagada?");
 
-        jTextField1.setText("26/05/2022");
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
-            }
-        });
-
         jTextField2.setText("1");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +89,7 @@ public class Arrendar extends javax.swing.JFrame {
             }
         });
 
-        jTextField3.setText("0");
+        jTextField3.setText("10000");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -299,7 +292,6 @@ public class Arrendar extends javax.swing.JFrame {
 
             arriendo.getVehiculo().setCondicion('A');
             arriendos.arrayList.add(arriendo);
-            setArriendoCargado(arriendo);
             vehiculos.guardarEnFichero();
             arriendos.guardarEnFichero();
             setJComboBox2Model();
@@ -324,14 +316,6 @@ public class Arrendar extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        char newChar = evt.getKeyChar();
-        String newString = Character.toString(newChar);
-        if (!isNumeric(newString)){
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
         char newChar = evt.getKeyChar();
@@ -405,7 +389,6 @@ public class Arrendar extends javax.swing.JFrame {
     private final Clientes clientes = new Clientes();
     private final Vehiculos vehiculos = new Vehiculos();
     private final Arriendos arriendos = new Arriendos();
-    private Arriendo arriendoCargado = null;    
 
     
     
@@ -414,10 +397,6 @@ public class Arrendar extends javax.swing.JFrame {
     
     
     
-
-    private void setArriendoCargado(Arriendo arriendoCargado) {
-        this.arriendoCargado = arriendoCargado;
-    }
 
     public boolean isNumeric(String string) {
         try {
